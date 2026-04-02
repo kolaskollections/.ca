@@ -1,332 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Checkout — kólas.kloset</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Parisienne&display=swap" rel="stylesheet">
-<style>
-:root {
-    --bg: #080808;
-    --panel: #121212;
-    --text: #f8f4ed;
-    --accent: #d87a1d;
-    --accent-soft: #f0d4b0;
-    --muted: #9b948b;
-    --line: rgba(216, 122, 29, 0.18);
-}
+const BACKEND_URL = "https://stripe-backend-m9du.onrender.com/create-checkout-session";
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+async function checkout() {
+    console.log("checkout clicked");
 
-body {
-    background: linear-gradient(to bottom, #080808, #101010);
-    color: var(--text);
-    font-family: "Cormorant Garamond", serif;
-}
-
-.nav {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    padding: 22px 52px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
-    background: rgba(8, 8, 8, 0.88);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(216, 122, 29, 0.08);
-}
-
-.logo-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-}
-
-.logo-image {
-    height: 56px;
-    width: auto;
-    display: block;
-}
-
-.nav-right {
-    display: flex;
-    gap: 24px;
-    align-items: center;
-}
-
-.nav-right a,
-.nav-right i {
-    font-size: 12px;
-    letter-spacing: 2px;
-    color: var(--muted);
-    text-transform: uppercase;
-    transition: 0.3s;
-    cursor: pointer;
-}
-
-.nav-right a:hover,
-.nav-right i:hover {
-    color: var(--accent);
-}
-
-.page-header {
-    min-height: 40vh;
-    padding: 140px 60px 50px;
-    display: flex;
-    align-items: end;
-    background:
-        linear-gradient(rgba(8, 8, 8, 0.54), rgba(8, 8, 8, 0.76)),
-        radial-gradient(circle at 30% 40%, rgba(216, 122, 29, 0.11), transparent 40%),
-        linear-gradient(135deg, #111, #090909);
-}
-
-.page-header h1 {
-    font-size: 60px;
-    font-weight: 500;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-}
-
-.content {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 70px 60px 100px;
-}
-
-.checkout-layout {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 30px;
-}
-
-.form-box,
-.summary-box {
-    background: var(--panel);
-    border: 1px solid rgba(216, 122, 29, 0.12);
-    padding: 30px;
-}
-
-.form-box h2,
-.summary-box h2 {
-    font-size: 28px;
-    margin-bottom: 24px;
-}
-
-.form-group {
-    margin-bottom: 18px;
-}
-
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 16px;
-}
-
-input {
-    width: 100%;
-    padding: 14px 14px;
-    background: #0d0d0d;
-    border: 1px solid rgba(216, 122, 29, 0.18);
-    color: var(--text);
-    font-size: 16px;
-}
-
-.summary-line {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 14px;
-    font-size: 18px;
-}
-
-.pay-btn {
-    width: 100%;
-    padding: 15px 18px;
-    background: var(--accent);
-    color: #111;
-    border: none;
-    cursor: pointer;
-    font-size: 12px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    transition: 0.3s;
-    margin-top: 18px;
-}
-
-.pay-btn:hover {
-    background: var(--accent-soft);
-}
-
-.notice {
-    margin-top: 18px;
-    color: var(--muted);
-    font-size: 15px;
-    line-height: 1.7;
-}
-
-.footer {
-    padding: 70px 60px;
-    text-align: center;
-    font-size: 12px;
-    letter-spacing: 2px;
-    color: var(--muted);
-    border-top: 1px solid rgba(216, 122, 29, 0.15);
-}
-
-@media (max-width: 900px) {
-    .checkout-layout {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 640px) {
-    .nav {
-        padding: 18px 22px;
-    }
-
-    .logo-image {
-        height: 42px;
-    }
-
-    .page-header {
-        padding: 120px 24px 40px;
-    }
-
-    .content {
-        padding: 60px 24px 80px;
-    }
-
-    .page-header h1 {
-        font-size: 38px;
-    }
-}
-</style>
-</head>
-<body>
-
-<nav class="nav">
-    <button class="logo-button" onclick="goHome()" aria-label="Go to home page">
-        <img src="./brand-logo.png" alt="kólas.kloset" class="logo-image">
-    </button>
-
-    <div class="nav-right">
-        <a onclick="goShop()">Shop</a>
-        <a onclick="goAbout()">About</a>
-        <i class="fa-solid fa-cart-shopping" onclick="goCart()" title="Cart"></i>
-    </div>
-</nav>
-
-<section class="page-header">
-    <h1>Checkout</h1>
-</section>
-
-<div class="content">
-    <div class="checkout-layout">
-        <div class="form-box">
-            <h2>Payment Details</h2>
-
-            <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" placeholder="Enter your full name">
-            </div>
-
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" placeholder="Enter your email">
-            </div>
-
-            <div class="form-group">
-                <label>Card Number</label>
-                <input type="text" placeholder="1234 5678 9012 3456">
-            </div>
-
-            <div class="form-group">
-                <label>Expiry Date</label>
-                <input type="text" placeholder="MM / YY">
-            </div>
-
-            <div class="form-group">
-                <label>CVV</label>
-                <input type="text" placeholder="123">
-            </div>
-
-            <button class="pay-btn" onclick="fakePayment()">Place Order</button>
-
-            <div class="notice">
-                This checkout page is fully set up visually, but it is not yet connected to a live payment processor. To accept real payments, you’ll need Stripe, PayPal, or another checkout service.
-            </div>
-        </div>
-
-        <div class="summary-box">
-            <h2>Order Summary</h2>
-            <div id="checkoutSummary"></div>
-        </div>
-    </div>
-</div>
-
-<footer class="footer">
-    © 2026 kólas.kloset — Rare pieces. No restocks. Built for presence.
-</footer>
-
-<script>
-function goHome() {
-    window.location.href = 'index.html';
-}
-
-function goShop() {
-    window.location.href = 'shop.html';
-}
-
-function goAbout() {
-    window.location.href = 'about.html';
-}
-
-function goCart() {
-    window.location.href = 'cart.html';
-}
-
-function loadCheckoutSummary() {
     const cart = JSON.parse(localStorage.getItem('kolaCart')) || [];
-    const summary = document.getElementById('checkoutSummary');
+    console.log("cart:", cart);
 
     if (cart.length === 0) {
-        summary.innerHTML = '<div class="summary-line"><span>No items</span><span>$0.00</span></div>';
+        alert("Your cart is empty");
         return;
     }
 
-    let total = 0;
+    try {
+        const res = await fetch(BACKEND_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ items: cart })
+        });
 
-    summary.innerHTML = cart.map(item => {
-        const lineTotal = item.price * item.quantity;
-        total += lineTotal;
-        return `
-            <div class="summary-line">
-                <span>${item.name} × ${item.quantity}</span>
-                <span>$${lineTotal.toFixed(2)}</span>
-            </div>
-        `;
-    }).join('') + `
-        <hr style="border:none;border-top:1px solid rgba(216,122,29,0.14);margin:18px 0;">
-        <div class="summary-line">
-            <strong>Total</strong>
-            <strong>$${total.toFixed(2)}</strong>
-        </div>
-    `;
+        console.log("response status:", res.status);
+
+        const data = await res.json();
+        console.log("response data:", data);
+
+        if (data.url) {
+            window.location.href = data.url;
+        } else {
+            alert("No checkout URL returned");
+        }
+    } catch (err) {
+        console.error("checkout error:", err);
+        alert("Error connecting to payment");
+    }
 }
-
-function fakePayment() {
-    alert('Checkout submitted. Connect a real payment provider to accept live payments.');
-}
-
-loadCheckoutSummary();
-</script>
-
-</body>
-</html>
