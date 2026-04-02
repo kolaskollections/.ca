@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cart — kólas.kloset</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Parisienne&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
 :root {
     --bg: #080808;
@@ -27,21 +28,33 @@
 body {
     background: linear-gradient(to bottom, #080808, #101010);
     color: var(--text);
-    font-family: "Cormorant Garamond", serif;
+    font-family: "Times New Roman", serif;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
 .nav {
     position: fixed;
     top: 0;
     width: 100%;
-    padding: 22px 52px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 22px 0;
     z-index: 1000;
     background: rgba(8, 8, 8, 0.88);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(216, 122, 29, 0.08);
+}
+
+.nav-inner {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
 }
 
 .logo-button {
@@ -52,25 +65,28 @@ body {
 }
 
 .logo-image {
-    height: 56px;
+    height: clamp(38px, 5vw, 54px);
     width: auto;
     display: block;
 }
 
 .nav-right {
     display: flex;
-    gap: 24px;
+    gap: clamp(14px, 2vw, 24px);
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
 }
 
 .nav-right a,
 .nav-right i {
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 2px;
     color: var(--muted);
     text-transform: uppercase;
     transition: 0.3s;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .nav-right a:hover,
@@ -79,41 +95,38 @@ body {
 }
 
 .page-header {
-    min-height: 42vh;
-    padding: 140px 60px 50px;
+    min-height: 48vh;
+    padding: 140px 0 60px;
     display: flex;
-    flex-direction: column;
-    justify-content: end;
+    align-items: end;
     background:
-        linear-gradient(rgba(8, 8, 8, 0.54), rgba(8, 8, 8, 0.76)),
-        radial-gradient(circle at 30% 40%, rgba(216, 122, 29, 0.11), transparent 40%),
+        linear-gradient(rgba(8,8,8,0.45), rgba(8,8,8,0.75)),
+        radial-gradient(circle at 30% 40%, rgba(216,122,29,0.10), transparent 40%),
         linear-gradient(135deg, #111, #090909);
 }
 
+.page-header-inner {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+}
+
 .page-header h1 {
-    font-size: 64px;
-    font-weight: 500;
-    letter-spacing: 4px;
+    font-size: 68px;
+    font-weight: 400;
+    letter-spacing: 5px;
     text-transform: uppercase;
 }
 
 .content {
-    max-width: 1100px;
+    width: min(1100px, calc(100% - 40px));
     margin: 0 auto;
-    padding: 80px 60px 100px;
+    padding: 90px 0 110px;
 }
 
-.cart-layout {
-    display: grid;
-    grid-template-columns: 1.4fr 0.8fr;
-    gap: 30px;
-}
-
-.cart-items,
-.summary-box {
+.cart-box {
     background: var(--panel);
-    border: 1px solid rgba(216, 122, 29, 0.12);
-    padding: 30px;
+    border: 1px solid rgba(202, 168, 92, 0.12);
+    padding: 40px;
 }
 
 .cart-item {
@@ -154,9 +167,10 @@ body {
     border-color: var(--accent);
 }
 
-.summary-box h2 {
-    font-size: 28px;
-    margin-bottom: 24px;
+.summary {
+    margin-top: 30px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(216, 122, 29, 0.12);
 }
 
 .summary-line {
@@ -176,9 +190,7 @@ body {
     text-transform: uppercase;
     letter-spacing: 3px;
     font-size: 12px;
-    cursor: pointer;
     transition: 0.3s;
-    text-decoration: none;
 }
 
 .checkout-btn {
@@ -192,9 +204,9 @@ body {
 }
 
 .back-btn {
-    border: 1px solid rgba(216, 122, 29, 0.22);
+    border: 1px solid rgba(255,255,255,0.22);
     color: var(--text);
-    background: transparent;
+    background: rgba(255,255,255,0.03);
 }
 
 .back-btn:hover {
@@ -205,42 +217,48 @@ body {
 .empty-cart {
     font-size: 20px;
     color: var(--muted);
+    text-align: center;
+    padding: 20px 0;
 }
 
 .footer {
-    padding: 70px 60px;
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 0 0 70px;
     text-align: center;
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 2px;
     color: var(--muted);
-    border-top: 1px solid rgba(216, 122, 29, 0.15);
-}
-
-@media (max-width: 900px) {
-    .cart-layout {
-        grid-template-columns: 1fr;
-    }
+    border-top: 1px solid rgba(202, 168, 92, 0.15);
+    padding-top: 40px;
 }
 
 @media (max-width: 640px) {
+    .nav-inner,
+    .page-header-inner,
+    .content,
+    .footer {
+        width: min(1180px, calc(100% - 24px));
+    }
+
     .nav {
-        padding: 18px 22px;
+        padding: 16px 0;
     }
 
     .logo-image {
-        height: 42px;
+        height: 40px;
     }
 
     .page-header {
-        padding: 120px 24px 40px;
-    }
-
-    .content {
-        padding: 60px 24px 80px;
+        padding: 120px 0 50px;
     }
 
     .page-header h1 {
-        font-size: 40px;
+        font-size: 42px;
+    }
+
+    .content {
+        padding: 70px 0 90px;
     }
 
     .cart-item {
@@ -253,44 +271,51 @@ body {
 <body>
 
 <nav class="nav">
-    <button class="logo-button" onclick="goHome()" aria-label="Go to home page">
-        <img src="./brand-logo.png" alt="kólas.kloset" class="logo-image">
-    </button>
+    <div class="nav-inner">
+        <button class="logo-button" onclick="goHome()" aria-label="Go to home page">
+            <img src="./brand-logo.png" alt="kólas.kloset" class="logo-image">
+        </button>
 
-    <div class="nav-right">
-        <a onclick="goShop()">Shop</a>
-        <a onclick="goAbout()">About</a>
-        <i class="fa-solid fa-cart-shopping" onclick="goCart()" title="Cart"></i>
+        <div class="nav-right">
+            <a onclick="goShop()">Shop</a>
+            <a onclick="goAbout()">About</a>
+            <i class="fa-solid fa-cart-shopping" onclick="goCart()" title="Cart"></i>
+        </div>
     </div>
 </nav>
 
 <section class="page-header">
-    <h1>Your Cart</h1>
+    <div class="page-header-inner">
+        <h1>Your Cart</h1>
+    </div>
 </section>
 
 <div class="content">
-    <div class="cart-layout">
-        <div class="cart-items" id="cartItems"></div>
+    <div class="cart-box">
+        <div id="cartItems"></div>
 
-        <div class="summary-box">
-            <h2>Order Summary</h2>
+        <div class="summary">
             <div class="summary-line">
                 <span>Subtotal</span>
                 <span id="subtotal">$0.00</span>
             </div>
-            <div class="summary-line">
-                <span>Shipping</span>
-                <span>Calculated at checkout</span>
-            </div>
 
-            <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
+            <a
+              href="https://buy.stripe.com/00w7sLeGb1p80sk1bMdMI00"
+              class="checkout-btn"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Proceed to Payment
+            </a>
+
             <a href="shop.html" class="back-btn">Back to Shop</a>
         </div>
     </div>
 </div>
 
 <footer class="footer">
-    © 2026 kólas.kloset — Rare pieces. No restocks. Built for presence.
+    © 2026 kólas.kloset — Rare pieces. Built for presence.
 </footer>
 
 <script>
