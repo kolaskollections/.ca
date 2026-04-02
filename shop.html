@@ -6,137 +6,636 @@
 <title>Shop — kólas.kloset</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
-    --bg:#0a0a0a;
-    --text:#f5f5f5;
-    --accent:#d87a1d;
-    --muted:#888;
+    --bg: #0a0a0a;
+    --bg-soft: #111111;
+    --panel: #171717;
+    --text: #f5f1ea;
+    --accent: #d87a1d;
+    --accent-soft: #efc48d;
+    --muted: #8d857b;
+    --line: rgba(216, 122, 29, 0.14);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-    margin:0;
-    background:var(--bg);
-    color:var(--text);
-    font-family:"Times New Roman", serif;
+    background: linear-gradient(to bottom, #0a0a0a, #101010);
+    color: var(--text);
+    font-family: "Times New Roman", serif;
+    overflow-x: hidden;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button {
+    font-family: inherit;
+}
+
+/* NAV */
 .nav {
-    position:fixed;
-    width:100%;
-    padding:30px 60px;
-    display:flex;
-    justify-content:space-between;
-    background:rgba(0,0,0,0.85);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 0;
+    z-index: 1000;
+    background: rgba(10, 10, 10, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(216, 122, 29, 0.07);
 }
 
-.logo-image { height:50px; cursor:pointer; }
-
-.nav-right { display:flex; gap:30px; }
-
-.nav-right a, .nav-right i {
-    font-size:12px;
-    color:var(--muted);
-    cursor:pointer;
+.nav-inner {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
 }
 
-.nav-right a:hover, .nav-right i:hover { color:var(--accent); }
-
-.header {
-    padding:160px 60px 60px;
+.logo-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    flex-shrink: 0;
 }
 
-.header h1 {
-    font-size:70px;
-    text-transform:uppercase;
+.logo-image {
+    height: clamp(38px, 5vw, 54px);
+    width: auto;
 }
 
-.tagline {
-    font-family:"Parisienne", cursive;
-    font-size:28px;
-    color:#f0d4b0;
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: clamp(16px, 2.5vw, 28px);
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.nav-right a {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    transition: 0.3s;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.nav-right a:hover {
+    color: var(--accent);
+}
+
+.cart-icon-wrap {
+    position: relative;
+    cursor: pointer;
+    color: var(--muted);
+    transition: 0.3s;
+    font-size: 15px;
+}
+
+.cart-icon-wrap:hover {
+    color: var(--accent);
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #111;
+    font-size: 10px;
+    line-height: 18px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* HERO */
+.page-header {
+    min-height: 58vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    padding: 140px 0 48px;
+    background:
+        linear-gradient(rgba(10, 10, 10, 0.50), rgba(10, 10, 10, 0.76)),
+        radial-gradient(circle at 25% 35%, rgba(216, 122, 29, 0.12), transparent 42%),
+        linear-gradient(135deg, #181818 0%, #0a0a0a 100%);
+}
+
+.page-header-inner {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+}
+
+.page-header h1 {
+    font-size: clamp(42px, 7vw, 76px);
+    font-weight: 400;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.page-header .tagline {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: clamp(22px, 3vw, 30px);
+    color: var(--accent-soft);
+}
+
+/* CATEGORY BAR */
+.category-bar {
+    position: sticky;
+    top: 82px;
+    z-index: 900;
+    background: rgba(12, 12, 12, 0.94);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+}
+
+.category-inner {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+    display: flex;
+    gap: 22px;
+    overflow-x: auto;
+    padding: 16px 0;
+    scrollbar-width: none;
+}
+
+.category-inner::-webkit-scrollbar {
+    display: none;
+}
+
+.category-link {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+    transition: 0.3s;
+}
+
+.category-link:hover {
+    color: var(--accent);
+}
+
+/* CONTENT */
+.content {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 56px 0 100px;
+}
+
+.shop-section {
+    margin-bottom: 90px;
+    scroll-margin-top: 150px;
+}
+
+.section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 18px;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line);
+}
+
+.section-title {
+    font-size: 12px;
+    letter-spacing: 6px;
+    color: var(--muted);
+    text-transform: uppercase;
+}
+
+.section-note {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
 }
 
 .grid {
-    padding:60px;
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:30px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
 }
 
 .card {
-    background:#1a1a1a;
-    padding:20px;
+    background: var(--panel);
+    border: 1px solid rgba(216, 122, 29, 0.08);
+    overflow: hidden;
+    transition: transform 0.35s ease, border-color 0.35s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(216, 122, 29, 0.24);
 }
 
 .card-image {
-    height:300px;
-    background:#222;
-    margin-bottom:15px;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    background: linear-gradient(135deg, #282828, #171717);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: 2px;
+}
+
+.card-info {
+    padding: 18px;
+    border-top: 1px solid rgba(216, 122, 29, 0.10);
+}
+
+.card-name {
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.card-price {
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 1px;
+    margin-bottom: 16px;
 }
 
 .add-btn {
-    border:1px solid var(--accent);
-    background:none;
-    color:white;
-    padding:10px;
-    cursor:pointer;
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid rgba(216, 122, 29, 0.24);
+    background: transparent;
+    color: var(--text);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 .add-btn:hover {
-    background:var(--accent);
-    color:black;
+    background: var(--accent);
+    color: #111;
+    border-color: var(--accent);
+}
+
+.footer {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 0 0 80px;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    border-top: 1px solid rgba(216, 122, 29, 0.15);
+    padding-top: 40px;
+}
+
+@media (max-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .nav-inner,
+    .page-header-inner,
+    .category-inner,
+    .content,
+    .footer {
+        width: min(1180px, calc(100% - 24px));
+    }
+
+    .nav {
+        padding: 16px 0;
+    }
+
+    .category-bar {
+        top: 72px;
+    }
+
+    .page-header {
+        padding: 120px 0 36px;
+    }
+
+    .content {
+        padding: 42px 0 70px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
 }
 </style>
 </head>
-
 <body>
 
 <nav class="nav">
-<img src="./brand-logo.png" class="logo-image" onclick="goHome()">
+    <div class="nav-inner">
+        <button class="logo-button" onclick="goHome()" aria-label="Go to home page">
+            <img src="./brand-logo.png" alt="kólas.kloset" class="logo-image">
+        </button>
 
-<div class="nav-right">
-<a onclick="goShop()">Shop</a>
-<a onclick="goAbout()">About</a>
-<i class="fa-solid fa-cart-shopping" onclick="goCart()"></i>
-</div>
+        <div class="nav-right">
+            <a onclick="goShop()">Shop</a>
+            <a onclick="goAbout()">About</a>
+
+            <div class="cart-icon-wrap" onclick="goCart()" title="Cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </div>
+    </div>
 </nav>
 
-<div class="header">
-<h1>Shop Kollections</h1>
-<div class="tagline">Rare pieces. No restocks. Built for presence.</div>
+<section class="page-header">
+    <div class="page-header-inner">
+        <h1>Shop Kollections</h1>
+        <div class="tagline">Rare pieces. No restocks. Built for presence.</div>
+    </div>
+</section>
+
+<div class="category-bar">
+    <div class="category-inner">
+        <a href="#new-arrivals" class="category-link">New Arrivals</a>
+        <a href="#kola-picks" class="category-link">Kóla Picks</a>
+        <a href="#tops" class="category-link">Tops</a>
+        <a href="#bottoms" class="category-link">Bottoms</a>
+        <a href="#shoes-accessories" class="category-link">Shoes / Accessories</a>
+    </div>
 </div>
 
-<div class="grid">
+<div class="content">
 
-<div class="card">
-<div class="card-image"></div>
-<p>Vintage Piece — $89</p>
-<button class="add-btn" onclick="addToCart('Vintage',89)">Add</button>
+    <section class="shop-section" id="new-arrivals">
+        <div class="section-head">
+            <h2 class="section-title">New Arrivals</h2>
+            <div class="section-note">Latest Drop</div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <div class="card-image">Arrival 01</div>
+                <div class="card-info">
+                    <div class="card-name">Vintage Piece</div>
+                    <div class="card-price">$89.00</div>
+                    <button class="add-btn" onclick="addToCart('Vintage Piece', 89)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">Arrival 02</div>
+                <div class="card-info">
+                    <div class="card-name">Rare Find</div>
+                    <div class="card-price">$125.00</div>
+                    <button class="add-btn" onclick="addToCart('Rare Find', 125)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">Arrival 03</div>
+                <div class="card-info">
+                    <div class="card-name">Classic Thrift</div>
+                    <div class="card-price">$95.00</div>
+                    <button class="add-btn" onclick="addToCart('Classic Thrift', 95)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="shop-section" id="kola-picks">
+        <div class="section-head">
+            <h2 class="section-title">Kóla Picks</h2>
+            <div class="section-note">Curated Edit</div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <div class="card-image">Pick 01</div>
+                <div class="card-info">
+                    <div class="card-name">Luxury Vintage</div>
+                    <div class="card-price">$210.00</div>
+                    <button class="add-btn" onclick="addToCart('Luxury Vintage', 210)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">Pick 02</div>
+                <div class="card-info">
+                    <div class="card-name">Designer Piece</div>
+                    <div class="card-price">$180.00</div>
+                    <button class="add-btn" onclick="addToCart('Designer Piece', 180)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">Pick 03</div>
+                <div class="card-info">
+                    <div class="card-name">Curated Find</div>
+                    <div class="card-price">$110.00</div>
+                    <button class="add-btn" onclick="addToCart('Curated Find', 110)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="shop-section" id="tops">
+        <div class="section-head">
+            <h2 class="section-title">Tops</h2>
+            <div class="section-note">Category</div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <div class="card-image">Top 01</div>
+                <div class="card-info">
+                    <div class="card-name">Structured Top</div>
+                    <div class="card-price">$72.00</div>
+                    <button class="add-btn" onclick="addToCart('Structured Top', 72)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">Top 02</div>
+                <div class="card-info">
+                    <div class="card-name">Statement Blouse</div>
+                    <div class="card-price">$84.00</div>
+                    <button class="add-btn" onclick="addToCart('Statement Blouse', 84)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">Top 03</div>
+                <div class="card-info">
+                    <div class="card-name">Vintage Knit</div>
+                    <div class="card-price">$68.00</div>
+                    <button class="add-btn" onclick="addToCart('Vintage Knit', 68)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="shop-section" id="bottoms">
+        <div class="section-head">
+            <h2 class="section-title">Bottoms</h2>
+            <div class="section-note">Category</div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <div class="card-image">Bottom 01</div>
+                <div class="card-info">
+                    <div class="card-name">Tailored Trouser</div>
+                    <div class="card-price">$96.00</div>
+                    <button class="add-btn" onclick="addToCart('Tailored Trouser', 96)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">Bottom 02</div>
+                <div class="card-info">
+                    <div class="card-name">Wide Leg Denim</div>
+                    <div class="card-price">$88.00</div>
+                    <button class="add-btn" onclick="addToCart('Wide Leg Denim', 88)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">Bottom 03</div>
+                <div class="card-info">
+                    <div class="card-name">Vintage Skirt</div>
+                    <div class="card-price">$74.00</div>
+                    <button class="add-btn" onclick="addToCart('Vintage Skirt', 74)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="shop-section" id="shoes-accessories">
+        <div class="section-head">
+            <h2 class="section-title">Shoes / Accessories</h2>
+            <div class="section-note">Category</div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <div class="card-image">Accessory 01</div>
+                <div class="card-info">
+                    <div class="card-name">Leather Bag</div>
+                    <div class="card-price">$145.00</div>
+                    <button class="add-btn" onclick="addToCart('Leather Bag', 145)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">Accessory 02</div>
+                <div class="card-info">
+                    <div class="card-name">Statement Heel</div>
+                    <div class="card-price">$132.00</div>
+                    <button class="add-btn" onclick="addToCart('Statement Heel', 132)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">Accessory 03</div>
+                <div class="card-info">
+                    <div class="card-name">Vintage Sunglasses</div>
+                    <div class="card-price">$58.00</div>
+                    <button class="add-btn" onclick="addToCart('Vintage Sunglasses', 58)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </div>
 
-<div class="card">
-<div class="card-image"></div>
-<p>Rare Find — $120</p>
-<button class="add-btn" onclick="addToCart('Rare',120)">Add</button>
-</div>
-
-</div>
+<footer class="footer">
+    © 2026 kólas.kloset — Rare pieces. No restocks. Built for presence.
+</footer>
 
 <script>
-function goHome(){location.href='index.html'}
-function goShop(){location.href='shop.html'}
-function goAbout(){location.href='about.html'}
-function goCart(){location.href='cart.html'}
-
-function addToCart(name,price){
-let cart=JSON.parse(localStorage.getItem('cart'))||[];
-cart.push({name,price});
-localStorage.setItem('cart',JSON.stringify(cart));
-alert("Added to cart");
+function goHome() {
+    window.location.href = 'index.html';
 }
+
+function goShop() {
+    window.location.href = 'shop.html';
+}
+
+function goAbout() {
+    window.location.href = 'about.html';
+}
+
+function goCart() {
+    window.location.href = 'cart.html';
+}
+
+function getCart() {
+    return JSON.parse(localStorage.getItem('kolaCart')) || [];
+}
+
+function saveCart(cart) {
+    localStorage.setItem('kolaCart', JSON.stringify(cart));
+}
+
+function updateCartCount() {
+    const cart = getCart();
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    document.getElementById('cartCount').textContent = totalItems;
+}
+
+function addToCart(name, price) {
+    const cart = getCart();
+    const existingItem = cart.find(item => item.name === name);
+
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({ name, price, quantity: 1 });
+    }
+
+    saveCart(cart);
+    updateCartCount();
+}
+
+updateCartCount();
 </script>
 
 </body>
