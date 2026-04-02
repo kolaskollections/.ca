@@ -3,18 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KÓLA — Home</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<title>Shop — Kóla</title>
 <style>
 :root {
-    --bg: #080808;
-    --panel: #121212;
-    --panel-2: #1a1a1a;
-    --text: #f8f6f2;
-    --accent: #caa85c;
-    --accent-soft: #e6cf97;
-    --muted: #9a9a9a;
-    --line: rgba(202, 168, 92, 0.18);
+    --bg: #0a0a0a;
+    --text: #f5f5f5;
+    --accent: #d4af37;
+    --muted: #888;
 }
 
 * {
@@ -24,7 +19,7 @@
 }
 
 body {
-    background: linear-gradient(to bottom, #080808, #0d0d0d 45%, #111 100%);
+    background: var(--bg);
     color: var(--text);
     font-family: "Times New Roman", serif;
 }
@@ -38,18 +33,18 @@ a {
     position: fixed;
     top: 0;
     width: 100%;
-    padding: 28px 60px;
+    padding: 40px 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
-    background: rgba(8, 8, 8, 0.86);
+    background: rgba(10, 10, 10, 0.85);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(202, 168, 92, 0.08);
 }
 
 .logo {
     font-size: 16px;
+    font-weight: 400;
     letter-spacing: 5px;
     color: var(--accent);
     cursor: pointer;
@@ -57,222 +52,166 @@ a {
 
 .nav-right {
     display: flex;
-    gap: 28px;
-    align-items: center;
+    gap: 40px;
 }
 
-.nav-right a,
-.nav-right i {
+.nav-right a {
     font-size: 12px;
     letter-spacing: 2px;
     color: var(--muted);
-    text-transform: uppercase;
     transition: 0.3s;
+    text-transform: uppercase;
     cursor: pointer;
 }
 
-.nav-right a:hover,
-.nav-right i:hover {
+.nav-right a:hover {
     color: var(--accent);
 }
 
-.hero {
-    min-height: 100vh;
-    padding: 140px 60px 90px;
+.page-header {
+    height: 60vh;
     display: flex;
     align-items: center;
-    background:
-        linear-gradient(rgba(8, 8, 8, 0.45), rgba(8, 8, 8, 0.72)),
-        radial-gradient(circle at 70% 25%, rgba(202, 168, 92, 0.14), transparent 35%),
-        url('./home-hero.jpg') center/cover no-repeat;
+    justify-content: flex-start;
+    padding: 100px 60px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+    position: relative;
 }
 
-.hero-inner {
-    max-width: 760px;
+.page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 50%);
+    pointer-events: none;
 }
 
-.hero-kicker {
-    font-size: 12px;
-    letter-spacing: 5px;
-    color: var(--accent-soft);
-    margin-bottom: 24px;
-    text-transform: uppercase;
-}
-
-.hero h1 {
-    font-size: 82px;
+.page-header h1 {
+    font-size: 72px;
     font-weight: 400;
-    line-height: 0.95;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
     text-transform: uppercase;
-    margin-bottom: 20px;
-}
-
-.hero p {
-    max-width: 580px;
-    font-size: 16px;
-    line-height: 1.8;
-    color: #ddd7ce;
-    margin-bottom: 34px;
-}
-
-.hero-actions {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-}
-
-.btn-main,
-.btn-secondary {
-    display: inline-block;
-    padding: 14px 26px;
-    font-size: 12px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    transition: 0.3s;
-}
-
-.btn-main {
-    background: var(--accent);
-    color: #111;
-}
-
-.btn-main:hover {
-    background: var(--accent-soft);
-}
-
-.btn-secondary {
-    border: 1px solid rgba(255,255,255,0.25);
-    color: var(--text);
-    background: rgba(255,255,255,0.03);
-}
-
-.btn-secondary:hover {
-    border-color: var(--accent);
-    color: var(--accent);
+    position: relative;
+    z-index: 2;
 }
 
 .content {
-    padding: 110px 60px;
-}
-
-.section {
-    margin-bottom: 110px;
-}
-
-.section-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
-    gap: 20px;
-    margin-bottom: 44px;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 18px;
+    padding: 120px 60px;
 }
 
 .section-title {
-    font-size: 13px;
+    font-size: 12px;
     letter-spacing: 6px;
     color: var(--muted);
-    text-transform: uppercase;
-}
-
-.section-link {
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: var(--accent);
+    margin-bottom: 80px;
     text-transform: uppercase;
 }
 
 .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
+    gap: 30px;
 }
 
 .card {
-    background: var(--panel);
-    border: 1px solid rgba(202, 168, 92, 0.1);
-    transition: transform 0.35s ease, border-color 0.35s ease;
-}
-
-.card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(202, 168, 92, 0.35);
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    background: #1a1a1a;
+    cursor: pointer;
 }
 
 .card-image {
-    aspect-ratio: 3 / 4;
-    background: linear-gradient(135deg, #202020, #141414);
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--muted);
     font-size: 14px;
-    letter-spacing: 2px;
+    color: var(--muted);
+    transition: all 0.6s ease;
+}
+
+.card:hover .card-image {
+    background: linear-gradient(135deg, #3a3a3a, #2a2a2a);
+    transform: scale(1.02);
+}
+
+.card::after {
+    content: 'ADD TO CART';
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+    font-size: 12px;
+    letter-spacing: 3px;
+    opacity: 0;
+    transition: 0.4s;
+    z-index: 10;
+    color: var(--accent);
+}
+
+.card:hover::after {
+    opacity: 1;
 }
 
 .card-info {
-    padding: 22px 20px;
-    border-top: 1px solid rgba(202, 168, 92, 0.12);
+    padding: 20px;
+    background: #1a1a1a;
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
 }
 
 .card-name {
     font-size: 14px;
     letter-spacing: 2px;
     margin-bottom: 10px;
-    text-transform: uppercase;
 }
 
 .card-price {
     font-size: 12px;
-    letter-spacing: 1px;
     color: var(--accent);
+    letter-spacing: 1px;
+}
+
+.divider {
+    height: 1px;
+    background: rgba(212, 175, 55, 0.2);
+    margin: 80px 60px;
 }
 
 .footer {
-    padding: 70px 60px;
+    padding: 100px 60px;
     text-align: center;
     font-size: 11px;
     letter-spacing: 2px;
     color: var(--muted);
-    border-top: 1px solid rgba(202, 168, 92, 0.15);
+    border-top: 1px solid rgba(212, 175, 55, 0.15);
 }
 
 @media (max-width: 1024px) {
-    .hero h1 {
-        font-size: 58px;
-    }
-
     .grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+    .page-header h1 {
+        font-size: 48px;
     }
 }
 
 @media (max-width: 640px) {
-    .nav {
-        padding: 22px 24px;
-    }
-
-    .hero {
-        padding: 120px 24px 70px;
-    }
-
-    .content {
-        padding: 70px 24px;
-    }
-
-    .hero h1 {
-        font-size: 42px;
-    }
-
     .grid {
         grid-template-columns: 1fr;
     }
-
-    .section-head {
-        flex-direction: column;
-        align-items: flex-start;
+    .nav {
+        padding: 20px 30px;
+    }
+    .page-header {
+        padding: 80px 30px;
+    }
+    .content {
+        padding: 60px 30px;
     }
 }
 </style>
@@ -284,95 +223,67 @@ a {
     <div class="nav-right">
         <a onclick="goShop()">Shop</a>
         <a onclick="goAbout()">About</a>
-        <i class="fa-solid fa-cart-shopping" onclick="goCart()" title="Cart"></i>
+        <a onclick="goContact()">Contact</a>
+        <a onclick="goCart()">Cart</a>
     </div>
 </nav>
 
-<section class="hero">
-    <div class="hero-inner">
-        <div class="hero-kicker">Kóla Klöset</div>
-        <h1>Rare pieces. No restocks. Built for presence.</h1>
-        <p>
-            Curated vintage and standout finds for people who dress with intention.
-            Distinctive pieces only — once it’s gone, it’s gone.
-        </p>
-        <div class="hero-actions">
-            <a href="shop.html" class="btn-main">Shop Kollections</a>
-            <a href="about.html" class="btn-secondary">About the Brand</a>
-        </div>
-    </div>
+<section class="page-header">
+    <h1>Shop All</h1>
 </section>
 
 <div class="content">
-    <section class="section">
-        <div class="section-head">
-            <h2 class="section-title">New Collection</h2>
-            <a href="shop.html" class="section-link">View All</a>
+    <h2 class="section-title">Latest Collection</h2>
+    <div class="grid">
+        <div class="card">
+            <div class="card-image">Item 1</div>
+            <div class="card-info">
+                <div class="card-name">Vintage Piece</div>
+                <div class="card-price">$89.00</div>
+            </div>
         </div>
-
-        <div class="grid">
-            <a href="shop.html" class="card">
-                <div class="card-image">New Drop 01</div>
-                <div class="card-info">
-                    <div class="card-name">Vintage Piece</div>
-                    <div class="card-price">$89.00</div>
-                </div>
-            </a>
-
-            <a href="shop.html" class="card">
-                <div class="card-image">New Drop 02</div>
-                <div class="card-info">
-                    <div class="card-name">Rare Find</div>
-                    <div class="card-price">$125.00</div>
-                </div>
-            </a>
-
-            <a href="shop.html" class="card">
-                <div class="card-image">New Drop 03</div>
-                <div class="card-info">
-                    <div class="card-name">Classic Thrift</div>
-                    <div class="card-price">$95.00</div>
-                </div>
-            </a>
+        <div class="card">
+            <div class="card-image">Item 2</div>
+            <div class="card-info">
+                <div class="card-name">Rare Find</div>
+                <div class="card-price">$125.00</div>
+            </div>
         </div>
-    </section>
-
-    <section class="section">
-        <div class="section-head">
-            <h2 class="section-title">Kóla’s Picks</h2>
-            <a href="shop.html" class="section-link">Shop More</a>
+        <div class="card">
+            <div class="card-image">Item 3</div>
+            <div class="card-info">
+                <div class="card-name">Classic Thrift</div>
+                <div class="card-price">$95.00</div>
+            </div>
         </div>
-
-        <div class="grid">
-            <a href="shop.html" class="card">
-                <div class="card-image">Picked 01</div>
-                <div class="card-info">
-                    <div class="card-name">Luxury Vintage</div>
-                    <div class="card-price">$210.00</div>
-                </div>
-            </a>
-
-            <a href="shop.html" class="card">
-                <div class="card-image">Picked 02</div>
-                <div class="card-info">
-                    <div class="card-name">Designer Piece</div>
-                    <div class="card-price">$180.00</div>
-                </div>
-            </a>
-
-            <a href="shop.html" class="card">
-                <div class="card-image">Picked 03</div>
-                <div class="card-info">
-                    <div class="card-name">Curated Find</div>
-                    <div class="card-price">$110.00</div>
-                </div>
-            </a>
+        <div class="card">
+            <div class="card-image">Item 4</div>
+            <div class="card-info">
+                <div class="card-name">Luxury Vintage</div>
+                <div class="card-price">$210.00</div>
+            </div>
         </div>
-    </section>
+        <div class="card">
+            <div class="card-image">Item 5</div>
+            <div class="card-info">
+                <div class="card-name">Designer Piece</div>
+                <div class="card-price">$180.00</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-image">Item 6</div>
+            <div class="card-info">
+                <div class="card-name">Curated Find</div>
+                <div class="card-price">$110.00</div>
+            </div>
+        </div>
+    </div>
 </div>
 
+<div class="divider"></div>
+
 <footer class="footer">
-    © 2026 Kóla Klöset — Rare pieces. No restocks. Built for presence.
+    © 2024 Kóla Klöset — Rare pieces. No restocks. Built for presence.
 </footer>
 
 <script>
@@ -388,11 +299,14 @@ function goAbout() {
     window.location.href = 'about.html';
 }
 
+function goContact() {
+    window.location.href = 'contact.html';
+}
+
 function goCart() {
     window.location.href = 'cart.html';
 }
 </script>
 
 </body>
-</html>
-
+</html
