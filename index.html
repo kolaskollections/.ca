@@ -4,18 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
-
-<title>KolasKollections</title>
+<title>KolasKloset</title>
 
 <style>
 
-/* ===== GLOBAL ===== */
+/* ===== COLORS ===== */
+:root {
+    --bg: #050505;
+    --text: #f5f5f5;
+    --accent: #c47a2c;
+    --muted: #777;
+}
+
+/* ===== BASE ===== */
 body {
     margin: 0;
-    font-family: 'Helvetica Neue', sans-serif;
-    background: #0a0a0a;
-    color: #f5f5f5;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Times New Roman", serif;
 }
 
 a {
@@ -23,109 +29,80 @@ a {
     color: inherit;
 }
 
-.section {
-    padding: 140px 12%;
-}
-
-img {
-    max-width: 100%;
-    display: block;
-}
-
 /* ===== NAV ===== */
 .nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 30px 60px;
     display: flex;
     justify-content: space-between;
-    padding: 25px 12%;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    background: rgba(10,10,10,0.6);
-    backdrop-filter: blur(12px);
     z-index: 100;
 }
 
 .logo {
-    font-weight: 600;
+    font-size: 14px;
     letter-spacing: 4px;
-    font-size: 14px;
 }
 
-.nav a {
+.nav-right a {
     margin-left: 30px;
-    font-size: 14px;
-    opacity: 0.6;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--muted);
 }
 
-.nav a:hover {
-    opacity: 1;
+.nav-right a:hover {
+    color: var(--text);
 }
 
 /* ===== HERO ===== */
 .hero {
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0 12%;
+    position: relative;
 }
 
-.hero h1 {
-    font-size: 72px;
-    line-height: 1;
-    margin: 0;
-}
-
-.hero span {
-    color: #c6a87d;
-}
-
-.hero p {
-    margin-top: 25px;
-    opacity: 0.6;
-    max-width: 400px;
-}
-
-/* ===== BUTTON ===== */
-.button {
-    margin-top: 40px;
-    display: inline-block;
-    border: 1px solid #fff;
-    padding: 12px 30px;
-    font-size: 12px;
-    letter-spacing: 2px;
-    transition: 0.3s;
-}
-
-.button:hover {
-    background: #fff;
-    color: #000;
-}
-
-/* ===== FEATURE IMAGE ===== */
-.feature {
-    margin-top: 120px;
-}
-
-.feature img {
+.hero img {
     width: 100%;
-    height: 80vh;
+    height: 100%;
     object-fit: cover;
 }
 
-/* ===== SECTION TITLE ===== */
-.title {
-    font-size: 22px;
-    letter-spacing: 5px;
+/* ===== OVERLAY ===== */
+.overlay {
+    position: absolute;
+    bottom: 80px;
+    left: 60px;
+}
+
+.overlay h1 {
+    font-size: 64px;
+    margin: 0;
+    font-weight: 400;
+    letter-spacing: 3px;
+}
+
+.overlay span {
+    color: var(--accent);
+}
+
+/* ===== SECTION ===== */
+.section {
+    padding: 160px 60px;
+}
+
+.section h2 {
+    font-size: 12px;
+    letter-spacing: 6px;
+    color: var(--muted);
     margin-bottom: 60px;
-    opacity: 0.8;
 }
 
 /* ===== GRID ===== */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 40px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 }
 
 .card {
@@ -134,29 +111,36 @@ img {
 }
 
 .card img {
+    width: 100%;
     transition: 0.6s;
 }
 
 .card:hover img {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
-.card .info {
+/* subtle luxury hover */
+.card::after {
+    content: "VIEW";
     position: absolute;
-    bottom: 0;
-    padding: 25px;
-    background: linear-gradient(transparent, rgba(0,0,0,0.9));
-    width: 100%;
-    font-size: 13px;
-    letter-spacing: 1px;
+    bottom: 20px;
+    left: 20px;
+    font-size: 12px;
+    letter-spacing: 3px;
+    opacity: 0;
+    transition: 0.4s;
+}
+
+.card:hover::after {
+    opacity: 1;
 }
 
 /* ===== FOOTER ===== */
 .footer {
     text-align: center;
-    padding: 80px;
-    opacity: 0.4;
-    font-size: 12px;
+    padding: 100px;
+    font-size: 11px;
+    color: var(--muted);
 }
 
 </style>
@@ -166,76 +150,49 @@ img {
 
 <!-- NAV -->
 <div class="nav">
-    <div class="logo">KOLA KLOSET</div>
-    <div>
-        <a href="#shop">Shop</a>
-        <a href="#">Archive</a>
-        <a href="#">Contact</a>
+    <div class="logo">KÓLA</div>
+
+    <div class="nav-right">
+        <a href="#shop">SHOP</a>
+        <a href="#">CART</a>
     </div>
 </div>
 
 <!-- HERO -->
 <section class="hero">
-    <h1>
-        CURATED <br>
-        <span>THRIFT</span> <br>
-        CULTURE
-    </h1>
+    <img src="./1.png">
 
-    <p>
-        Rare pieces. No restocks. Built for presence.
-    </p>
-
-    <a href="#shop" class="button">ENTER</a>
-
-    <div class="feature">
-        <img src="./1.png">
+    <div class="overlay">
+        <h1>SHOP <span>KOLLECTIONS</span></h1>
     </div>
 </section>
 
-<!-- SHOP KOLLECTIONS -->
+<!-- NEW ARRIVAL -->
 <section class="section" id="shop">
-    <div class="title">SHOP KOLLECTIONS</div>
+    <h2>NEW ARRIVAL</h2>
 
     <div class="grid">
-
-        <div class="card">
-            <img src="./2.png">
-            <div class="info">Vintage Leather — $85</div>
-        </div>
-
-        <div class="card">
-            <img src="./3.png">
-            <div class="info">Oversized Tee — $25</div>
-        </div>
-
-        <div class="card">
-            <img src="./4.png">
-            <div class="info">Distressed Denim — $60</div>
-        </div>
-
+        <div class="card"><img src="./2.png"></div>
+        <div class="card"><img src="./3.png"></div>
+        <div class="card"><img src="./4.png"></div>
     </div>
 </section>
 
-<!-- LOOKBOOK -->
+<!-- MONTHLY PICK -->
 <section class="section">
-    <div class="title">ARCHIVE</div>
+    <h2>KÓLA MONTHLY PICK</h2>
 
     <div class="grid">
         <div class="card"><img src="./5.png"></div>
         <div class="card"><img src="./6.png"></div>
         <div class="card"><img src="./7.png"></div>
-        <div class="card"><img src="./8.png"></div>
     </div>
 </section>
 
 <!-- FOOTER -->
 <div class="footer">
-    © KolasKollections — KolaKloset
+    © Kóla — KolasKloset
 </div>
-
-</body>
-</html>
 
 </body>
 </html>
