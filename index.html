@@ -1,179 +1,467 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KÓLA — Home</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kóla Klöset</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    body {
+      background: linear-gradient(to bottom, #6f42c1, #ffffff);
+      color: #222;
+      min-height: 100vh;
+    }
 
-<style>
-:root {
-    --bg: #080808;
-    --text: #f8f6f2;
-    --accent: #caa85c;
-    --muted: #9a9a9a;
-}
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+    }
 
-* {
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #222;
+    }
 
-body {
-    background:#080808;
-    color:var(--text);
-    font-family:"Times New Roman", serif;
-}
+    .logo img {
+      height: 50px;
+      width: auto;
+      display: block;
+    }
 
-/* NAV */
-.nav {
-    position:fixed;
-    top:0;
-    width:100%;
-    padding:25px 60px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    background:rgba(8,8,8,0.9);
-}
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
 
-/* ✅ NEW LOGO STYLING */
-.logo-button {
-    background:none;
-    border:none;
-    cursor:pointer;
-    padding:0;
-}
+    .logo-text h1 {
+      font-size: 1.4rem;
+    }
 
-.logo-image {
-    height:50px;
-    width:auto;
-    display:block;
-}
+    .logo-text p {
+      font-size: 0.9rem;
+      font-style: italic;
+    }
 
-.nav-right {
-    display:flex;
-    gap:25px;
-}
+    nav {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
 
-.nav-right a, .nav-right i {
-    font-size:12px;
-    letter-spacing:2px;
-    color:var(--muted);
-    cursor:pointer;
-}
+    nav a {
+      text-decoration: none;
+      color: #222;
+      font-weight: bold;
+    }
 
-.nav-right a:hover, .nav-right i:hover {
-    color:var(--accent);
-}
+    .cart-icon {
+      position: relative;
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
 
-/* HERO */
-.hero {
-    padding:140px 60px;
-}
+    .cart-count {
+      position: absolute;
+      top: -10px;
+      right: -12px;
+      background: black;
+      color: white;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-.hero h1 {
-    font-size:70px;
-}
+    .hero {
+      text-align: center;
+      padding: 60px 20px 30px;
+    }
 
-.hero p {
-    margin:20px 0;
-    max-width:500px;
-}
+    .hero h2 {
+      font-size: 2.4rem;
+      margin-bottom: 10px;
+    }
 
-.btn {
-    padding:12px 20px;
-    border:1px solid var(--accent);
-    display:inline-block;
-    margin-top:20px;
-    cursor:pointer;
-}
+    .hero p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
 
-/* SECTIONS */
-.section {
-    padding:60px;
-}
+    .shop-title {
+      text-align: center;
+      margin: 40px 0 10px;
+    }
 
-.grid {
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-}
+    .shop-title h2 {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
 
-.card {
-    background:#121212;
-    padding:15px;
-}
+    .shop-title p {
+      font-style: italic;
+      font-size: 1rem;
+    }
 
-.card-image {
-    height:200px;
-    background:#222;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      padding: 20px;
+    }
 
-.footer {
-    text-align:center;
-    padding:40px;
-    color:var(--muted);
-}
-</style>
+    .category-btn {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 20px;
+      background: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin: 30px 0 20px;
+      font-size: 1.6rem;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      padding: 0 30px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 14px;
+      margin-bottom: 14px;
+    }
+
+    .product-card h3 {
+      margin-bottom: 8px;
+    }
+
+    .product-card p {
+      margin-bottom: 14px;
+      font-weight: bold;
+    }
+
+    .product-card button,
+    .checkout-btn {
+      background: #6f42c1;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .cart-panel {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      width: 380px;
+      max-width: 100%;
+      height: 100%;
+      background: white;
+      box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+      padding: 24px;
+      transition: right 0.3s ease;
+      z-index: 999;
+      overflow-y: auto;
+    }
+
+    .cart-panel.open {
+      right: 0;
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .close-cart {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .cart-item {
+      border-bottom: 1px solid #eee;
+      padding: 14px 0;
+    }
+
+    .cart-item h4 {
+      margin-bottom: 6px;
+    }
+
+    .cart-item-controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .cart-item-controls button {
+      padding: 6px 10px;
+      border: none;
+      background: #eee;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .cart-footer {
+      margin-top: 20px;
+    }
+
+    .cart-total {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 14px;
+    }
+
+    .empty-cart {
+      color: #666;
+      margin-top: 20px;
+    }
+  </style>
 </head>
-
 <body>
 
-<nav class="nav">
+  <header>
+    <a href="#" class="logo">
+      <img src="logo.png" alt="Kóla Klöset Logo">
+      <div class="logo-text">
+        <h1>Kóla Klöset</h1>
+        <p>clean, elegant, and neatly done</p>
+      </div>
+    </a>
 
-    <!-- ✅ IMAGE LOGO -->
-    <button class="logo-button" onclick="goHome()">
-        <img src="./brand-logo.png" class="logo-image" alt="kólas.kloset">
-    </button>
+    <nav>
+      <a href="#shop">Shop</a>
+      <a href="#new-arrivals">New Arrivals</a>
+      <a href="#kolas-picks">Kola’s Picks</a>
+      <div class="cart-icon" onclick="toggleCart()">
+        🛒
+        <span class="cart-count" id="cart-count">0</span>
+      </div>
+    </nav>
+  </header>
 
-    <div class="nav-right">
-        <a onclick="goShop()">Shop</a>
-        <a onclick="goAbout()">About</a>
-        <i class="fa-solid fa-cart-shopping" onclick="goCart()"></i>
+  <section class="hero">
+    <h2>Shop Kollektions</h2>
+    <p>Curated pieces with a clean, elegant, and neatly done feel.</p>
+  </section>
+
+  <section class="shop-title" id="shop">
+    <h2>Shop Kollektions</h2>
+    <p>clean, elegant, and neatly done</p>
+  </section>
+
+  <div class="categories">
+    <button class="category-btn">Tops</button>
+    <button class="category-btn">Bottoms</button>
+    <button class="category-btn">Jackets</button>
+    <button class="category-btn">Shoes</button>
+    <button class="category-btn">Accessories</button>
+    <button class="category-btn">New In</button>
+  </div>
+
+  <h2 class="section-heading" id="new-arrivals">New Arrivals</h2>
+  <section class="products">
+    <div class="product-card">
+      <img src="https://via.placeholder.com/300x350?text=Blazer" alt="Structured Blazer">
+      <h3>Structured Blazer</h3>
+      <p>$95.00 CAD</p>
+      <button onclick="addToCart('Structured Blazer', 95)">Add to Cart</button>
     </div>
 
-</nav>
+    <div class="product-card">
+      <img src="https://via.placeholder.com/300x350?text=Cargos" alt="Camo Cargos">
+      <h3>Camo Cargos</h3>
+      <p>$68.00 CAD</p>
+      <button onclick="addToCart('Camo Cargos', 68)">Add to Cart</button>
+    </div>
 
-<div class="hero">
-    <h1>Rare pieces. No restocks.</h1>
-    <p>Curated vintage and standout finds for people who dress with intention.</p>
-    <a href="shop.html" class="btn">Shop Kollections</a>
-</div>
+    <div class="product-card">
+      <img src="https://via.placeholder.com/300x350?text=Heels" alt="Classic Heels">
+      <h3>Classic Heels</h3>
+      <p>$72.00 CAD</p>
+      <button onclick="addToCart('Classic Heels', 72)">Add to Cart</button>
+    </div>
+  </section>
 
-<div class="section">
-    <h2>New Collection</h2>
-    <div class="grid">
-        <div class="card">
-            <div class="card-image">Item</div>
+  <h2 class="section-heading" id="kolas-picks">Kola’s Picks</h2>
+  <section class="products">
+    <div class="product-card">
+      <img src="https://via.placeholder.com/300x350?text=Leather+Jacket" alt="Leather Jacket">
+      <h3>Leather Jacket</h3>
+      <p>$120.00 CAD</p>
+      <button onclick="addToCart('Leather Jacket', 120)">Add to Cart</button>
+    </div>
+
+    <div class="product-card">
+      <img src="https://via.placeholder.com/300x350?text=Boots" alt="Statement Boots">
+      <h3>Statement Boots</h3>
+      <p>$88.00 CAD</p>
+      <button onclick="addToCart('Statement Boots', 88)">Add to Cart</button>
+    </div>
+
+    <div class="product-card">
+      <img src="https://via.placeholder.com/300x350?text=Bag" alt="Mini Shoulder Bag">
+      <h3>Mini Shoulder Bag</h3>
+      <p>$54.00 CAD</p>
+      <button onclick="addToCart('Mini Shoulder Bag', 54)">Add to Cart</button>
+    </div>
+  </section>
+
+  <div class="cart-panel" id="cart-panel">
+    <div class="cart-header">
+      <h2>Your Cart</h2>
+      <button class="close-cart" onclick="toggleCart()">×</button>
+    </div>
+
+    <div id="cart-items"></div>
+
+    <div class="cart-footer">
+      <div class="cart-total" id="cart-total">Total: $0.00 CAD</div>
+      <button class="checkout-btn" onclick="checkout()">Checkout</button>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+
+    function toggleCart() {
+      document.getElementById("cart-panel").classList.toggle("open");
+    }
+
+    function updateCartUI() {
+      const cartCount = document.getElementById("cart-count");
+      const cartItems = document.getElementById("cart-items");
+      const cartTotal = document.getElementById("cart-total");
+
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+      cartCount.textContent = totalItems;
+      cartTotal.textContent = `Total: $${totalPrice.toFixed(2)} CAD`;
+
+      if (cart.length === 0) {
+        cartItems.innerHTML = '<p class="empty-cart">Your cart is empty.</p>';
+        return;
+      }
+
+      cartItems.innerHTML = cart.map((item, index) => `
+        <div class="cart-item">
+          <h4>${item.name}</h4>
+          <p>$${item.price.toFixed(2)} CAD</p>
+          <div class="cart-item-controls">
+            <button onclick="decreaseQuantity(${index})">-</button>
+            <span>${item.quantity}</span>
+            <button onclick="increaseQuantity(${index})">+</button>
+            <button onclick="removeFromCart(${index})">Remove</button>
+          </div>
         </div>
-    </div>
-</div>
+      `).join("");
+    }
 
-<div class="section">
-    <h2>Kóla’s Picks</h2>
-    <div class="grid">
-        <div class="card">
-            <div class="card-image">Item</div>
-        </div>
-    </div>
-</div>
+    function addToCart(name, price) {
+      const existingItem = cart.find(item => item.name === name);
 
-<div class="footer">
-© 2026 kólas.kloset
-</div>
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({ name, price, quantity: 1 });
+      }
 
-<script>
-function goHome(){ window.location.href='index.html'; }
-function goShop(){ window.location.href='shop.html'; }
-function goAbout(){ window.location.href='about.html'; }
-function goCart(){ window.location.href='cart.html'; }
-</script>
+      updateCartUI();
+    }
 
+    function increaseQuantity(index) {
+      cart[index].quantity += 1;
+      updateCartUI();
+    }
+
+    function decreaseQuantity(index) {
+      if (cart[index].quantity > 1) {
+        cart[index].quantity -= 1;
+      } else {
+        cart.splice(index, 1);
+      }
+      updateCartUI();
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartUI();
+    }
+
+    async function checkout() {
+      if (cart.length === 0) {
+        alert("Your cart is empty.");
+        return;
+      }
+
+      try {
+        const response = await fetch("http://localhost:4242/create-checkout-session", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ items: cart })
+        });
+
+        const data = await response.json();
+
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          alert("Something went wrong starting checkout.");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Could not connect to checkout server.");
+      }
+    }
+
+    updateCartUI();
+  </script>
 </body>
 </html>
