@@ -363,7 +363,15 @@ function loadCart() {
 
 function removeItem(index) {
     const cart = getCart();
-    cart.splice(index, 1);
+
+    if (!cart[index]) return;
+
+    if (cart[index].quantity > 1) {
+        cart[index].quantity -= 1;
+    } else {
+        cart.splice(index, 1);
+    }
+
     saveCart(cart);
     loadCart();
 }
