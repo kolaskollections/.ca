@@ -3,14 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kóla — Curated Thrift Culture</title>
+<title>Shop — Kóla</title>
 <style>
 :root {
     --bg: #0a0a0a;
     --text: #f5f5f5;
     --accent: #d4af37;
     --muted: #888;
-    --hover: #c47a2c;
 }
 
 * {
@@ -23,7 +22,6 @@ body {
     background: var(--bg);
     color: var(--text);
     font-family: "Times New Roman", serif;
-    overflow-x: hidden;
 }
 
 a {
@@ -31,7 +29,6 @@ a {
     color: inherit;
 }
 
-/* NAV */
 .nav {
     position: fixed;
     top: 0;
@@ -50,6 +47,7 @@ a {
     font-weight: 400;
     letter-spacing: 5px;
     color: var(--accent);
+    cursor: pointer;
 }
 
 .nav-right {
@@ -63,25 +61,24 @@ a {
     color: var(--muted);
     transition: 0.3s;
     text-transform: uppercase;
+    cursor: pointer;
 }
 
 .nav-right a:hover {
     color: var(--accent);
 }
 
-/* HERO */
-.hero {
-    height: 100vh;
+.page-header {
+    height: 60vh;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: flex-start;
-    padding: 80px 60px 100px;
+    padding: 100px 60px;
     background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
     position: relative;
-    overflow: hidden;
 }
 
-.hero::before {
+.page-header::before {
     content: '';
     position: absolute;
     top: 0;
@@ -92,38 +89,17 @@ a {
     pointer-events: none;
 }
 
-.hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 900px;
-}
-
-.hero h1 {
-    font-size: 92px;
+.page-header h1 {
+    font-size: 72px;
     font-weight: 400;
     letter-spacing: 4px;
-    line-height: 1.1;
-    margin-bottom: 30px;
     text-transform: uppercase;
+    position: relative;
+    z-index: 2;
 }
 
-.hero span {
-    color: var(--accent);
-    display: block;
-}
-
-.hero p {
-    font-size: 18px;
-    font-weight: 300;
-    letter-spacing: 2px;
-    color: var(--muted);
-    max-width: 500px;
-    line-height: 1.8;
-}
-
-/* SECTION */
-.section {
-    padding: 160px 60px;
+.content {
+    padding: 120px 60px;
 }
 
 .section-title {
@@ -134,7 +110,6 @@ a {
     text-transform: uppercase;
 }
 
-/* GRID */
 .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -146,6 +121,7 @@ a {
     aspect-ratio: 3/4;
     overflow: hidden;
     background: #1a1a1a;
+    cursor: pointer;
 }
 
 .card-image {
@@ -158,7 +134,6 @@ a {
     font-size: 14px;
     color: var(--muted);
     transition: all 0.6s ease;
-    position: relative;
 }
 
 .card:hover .card-image {
@@ -167,7 +142,7 @@ a {
 }
 
 .card::after {
-    content: 'VIEW';
+    content: 'ADD TO CART';
     position: absolute;
     bottom: 25px;
     left: 25px;
@@ -176,21 +151,37 @@ a {
     opacity: 0;
     transition: 0.4s;
     z-index: 10;
+    color: var(--accent);
 }
 
 .card:hover::after {
     opacity: 1;
-    color: var(--accent);
 }
 
-/* DIVIDER */
+.card-info {
+    padding: 20px;
+    background: #1a1a1a;
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.card-name {
+    font-size: 14px;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.card-price {
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 1px;
+}
+
 .divider {
     height: 1px;
     background: rgba(212, 175, 55, 0.2);
-    margin: 120px 60px;
+    margin: 80px 60px;
 }
 
-/* FOOTER */
 .footer {
     padding: 100px 60px;
     text-align: center;
@@ -204,8 +195,8 @@ a {
     .grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    .hero h1 {
-        font-size: 64px;
+    .page-header h1 {
+        font-size: 48px;
     }
 }
 
@@ -216,85 +207,106 @@ a {
     .nav {
         padding: 20px 30px;
     }
-    .hero {
-        padding: 60px 30px 80px;
-    }
-    .hero h1 {
-        font-size: 48px;
-    }
-    .section {
+    .page-header {
         padding: 80px 30px;
+    }
+    .content {
+        padding: 60px 30px;
     }
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav class="nav">
-    <div class="logo">KÓLA</div>
+    <div class="logo" onclick="goHome()">KÓLA</div>
     <div class="nav-right">
-        <a href="#shop">Shop</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-        <a href="#cart">Cart</a>
+        <a onclick="goShop()">Shop</a>
+        <a onclick="goAbout()">About</a>
+        <a onclick="goContact()">Contact</a>
+        <a onclick="goCart()">Cart</a>
     </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-    <div class="hero-content">
-        <h1>
-            Curated
-            <span>Thrift</span>
-            Culture
-        </h1>
-        <p>Rare pieces. No restocks. Built for presence.</p>
-    </div>
+<section class="page-header">
+    <h1>Shop All</h1>
 </section>
 
-<div class="divider"></div>
-
-<!-- NEW ARRIVALS -->
-<section class="section" id="shop">
-    <h2 class="section-title">New Arrivals</h2>
+<div class="content">
+    <h2 class="section-title">Latest Collection</h2>
     <div class="grid">
         <div class="card">
-            <div class="card-image">Vintage Piece 1</div>
+            <div class="card-image">Item 1</div>
+            <div class="card-info">
+                <div class="card-name">Vintage Piece</div>
+                <div class="card-price">$89.00</div>
+            </div>
         </div>
         <div class="card">
-            <div class="card-image">Vintage Piece 2</div>
+            <div class="card-image">Item 2</div>
+            <div class="card-info">
+                <div class="card-name">Rare Find</div>
+                <div class="card-price">$125.00</div>
+            </div>
         </div>
         <div class="card">
-            <div class="card-image">Vintage Piece 3</div>
+            <div class="card-image">Item 3</div>
+            <div class="card-info">
+                <div class="card-name">Classic Thrift</div>
+                <div class="card-price">$95.00</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-image">Item 4</div>
+            <div class="card-info">
+                <div class="card-name">Luxury Vintage</div>
+                <div class="card-price">$210.00</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-image">Item 5</div>
+            <div class="card-info">
+                <div class="card-name">Designer Piece</div>
+                <div class="card-price">$180.00</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-image">Item 6</div>
+            <div class="card-info">
+                <div class="card-name">Curated Find</div>
+                <div class="card-price">$110.00</div>
+            </div>
         </div>
     </div>
-</section>
+</div>
 
 <div class="divider"></div>
 
-<!-- FEATURED PICKS -->
-<section class="section">
-    <h2 class="section-title">Kóla Monthly Pick</h2>
-    <div class="grid">
-        <div class="card">
-            <div class="card-image">Curated Selection 1</div>
-        </div>
-        <div class="card">
-            <div class="card-image">Curated Selection 2</div>
-        </div>
-        <div class="card">
-            <div class="card-image">Curated Selection 3</div>
-        </div>
-    </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- FOOTER -->
 <footer class="footer">
     © 2024 Kóla Klöset — Rare pieces. No restocks. Built for presence.
 </footer>
+
+<script>
+function goHome() {
+    window.location.href = 'index.html';
+}
+
+function goShop() {
+    window.location.href = 'shop.html';
+}
+
+function goAbout() {
+    window.location.href = 'about.html';
+}
+
+function goContact() {
+    window.location.href = 'contact.html';
+}
+
+function goCart() {
+    window.location.href = 'cart.html';
+}
+</script>
 
 </body>
 </html>
