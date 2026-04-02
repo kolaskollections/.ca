@@ -3,17 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cart — KÓLA</title>
+<title>Cart — kólas.kloset</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Parisienne&display=swap" rel="stylesheet">
 <style>
 :root {
     --bg: #080808;
     --panel: #121212;
-    --text: #f8f6f2;
-    --accent: #caa85c;
-    --accent-soft: #e6cf97;
-    --muted: #9a9a9a;
-    --line: rgba(202, 168, 92, 0.18);
+    --panel-2: #171717;
+    --text: #f8f4ed;
+    --accent: #d87a1d;
+    --accent-soft: #f0d4b0;
+    --muted: #9b948b;
+    --line: rgba(216, 122, 29, 0.18);
 }
 
 * {
@@ -25,38 +27,39 @@
 body {
     background: linear-gradient(to bottom, #080808, #101010);
     color: var(--text);
-    font-family: "Times New Roman", serif;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
+    font-family: "Cormorant Garamond", serif;
 }
 
 .nav {
     position: fixed;
     top: 0;
     width: 100%;
-    padding: 28px 60px;
+    padding: 22px 52px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
-    background: rgba(8, 8, 8, 0.86);
+    background: rgba(8, 8, 8, 0.88);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(202, 168, 92, 0.08);
+    border-bottom: 1px solid rgba(216, 122, 29, 0.08);
 }
 
-.logo {
-    font-size: 16px;
-    letter-spacing: 5px;
-    color: var(--accent);
+.logo-button {
+    background: none;
+    border: none;
     cursor: pointer;
+    padding: 0;
+}
+
+.logo-image {
+    height: 56px;
+    width: auto;
+    display: block;
 }
 
 .nav-right {
     display: flex;
-    gap: 28px;
+    gap: 24px;
     align-items: center;
 }
 
@@ -76,108 +79,173 @@ a {
 }
 
 .page-header {
-    min-height: 48vh;
-    padding: 140px 60px 60px;
+    min-height: 42vh;
+    padding: 140px 60px 50px;
     display: flex;
-    align-items: end;
+    flex-direction: column;
+    justify-content: end;
     background:
-        linear-gradient(rgba(8,8,8,0.45), rgba(8,8,8,0.75)),
-        radial-gradient(circle at 30% 40%, rgba(202,168,92,0.10), transparent 40%),
+        linear-gradient(rgba(8, 8, 8, 0.54), rgba(8, 8, 8, 0.76)),
+        radial-gradient(circle at 30% 40%, rgba(216, 122, 29, 0.11), transparent 40%),
         linear-gradient(135deg, #111, #090909);
 }
 
 .page-header h1 {
-    font-size: 68px;
-    font-weight: 400;
-    letter-spacing: 5px;
+    font-size: 64px;
+    font-weight: 500;
+    letter-spacing: 4px;
     text-transform: uppercase;
 }
 
 .content {
-    padding: 90px 60px 110px;
     max-width: 1100px;
     margin: 0 auto;
+    padding: 80px 60px 100px;
 }
 
-.cart-box {
+.cart-layout {
+    display: grid;
+    grid-template-columns: 1.4fr 0.8fr;
+    gap: 30px;
+}
+
+.cart-items,
+.summary-box {
     background: var(--panel);
-    border: 1px solid rgba(202, 168, 92, 0.12);
-    padding: 40px;
-    text-align: center;
+    border: 1px solid rgba(216, 122, 29, 0.12);
+    padding: 30px;
 }
 
-.cart-box h2 {
-    font-size: 24px;
-    font-weight: 400;
-    margin-bottom: 16px;
+.cart-item {
+    display: grid;
+    grid-template-columns: 1.4fr 0.7fr 0.7fr 0.5fr;
+    gap: 12px;
+    align-items: center;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(216, 122, 29, 0.08);
 }
 
-.cart-box p {
-    color: #d8d1c7;
-    line-height: 1.8;
-    max-width: 560px;
-    margin: 0 auto 28px;
+.cart-item:last-child {
+    border-bottom: none;
 }
 
-.cart-actions {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    flex-wrap: wrap;
+.item-name {
+    font-size: 20px;
 }
 
-.cart-actions a {
-    padding: 14px 24px;
-    font-size: 12px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
+.item-meta,
+.item-total {
+    font-size: 16px;
+    color: var(--accent-soft);
+}
+
+.remove-btn {
+    background: none;
+    border: 1px solid rgba(216, 122, 29, 0.22);
+    color: var(--text);
+    padding: 8px 10px;
+    cursor: pointer;
     transition: 0.3s;
 }
 
-.btn-main {
+.remove-btn:hover {
     background: var(--accent);
     color: #111;
+    border-color: var(--accent);
 }
 
-.btn-main:hover {
+.summary-box h2 {
+    font-size: 28px;
+    margin-bottom: 24px;
+}
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    font-size: 18px;
+}
+
+.checkout-btn,
+.back-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 14px 18px;
+    margin-top: 16px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.checkout-btn {
+    background: var(--accent);
+    color: #111;
+    border: none;
+}
+
+.checkout-btn:hover {
     background: var(--accent-soft);
 }
 
-.btn-outline {
-    border: 1px solid rgba(255,255,255,0.22);
+.back-btn {
+    border: 1px solid rgba(216, 122, 29, 0.22);
     color: var(--text);
-    background: rgba(255,255,255,0.03);
+    background: transparent;
 }
 
-.btn-outline:hover {
+.back-btn:hover {
     border-color: var(--accent);
     color: var(--accent);
+}
+
+.empty-cart {
+    font-size: 20px;
+    color: var(--muted);
 }
 
 .footer {
     padding: 70px 60px;
     text-align: center;
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 2px;
     color: var(--muted);
-    border-top: 1px solid rgba(202, 168, 92, 0.15);
+    border-top: 1px solid rgba(216, 122, 29, 0.15);
+}
+
+@media (max-width: 900px) {
+    .cart-layout {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 640px) {
     .nav {
-        padding: 22px 24px;
+        padding: 18px 22px;
+    }
+
+    .logo-image {
+        height: 42px;
     }
 
     .page-header {
-        padding: 120px 24px 50px;
+        padding: 120px 24px 40px;
     }
 
     .content {
-        padding: 70px 24px 90px;
+        padding: 60px 24px 80px;
     }
 
     .page-header h1 {
-        font-size: 42px;
+        font-size: 40px;
+    }
+
+    .cart-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
     }
 }
 </style>
@@ -185,7 +253,10 @@ a {
 <body>
 
 <nav class="nav">
-    <div class="logo" onclick="goHome()">KÓLA</div>
+    <button class="logo-button" onclick="goHome()" aria-label="Go to home page">
+        <img src="./brand-logo.png" alt="kólas.kloset" class="logo-image">
+    </button>
+
     <div class="nav-right">
         <a onclick="goShop()">Shop</a>
         <a onclick="goAbout()">About</a>
@@ -194,26 +265,32 @@ a {
 </nav>
 
 <section class="page-header">
-    <h1>Cart</h1>
+    <h1>Your Cart</h1>
 </section>
 
 <div class="content">
-    <div class="cart-box">
-        <h2>Your cart is currently empty.</h2>
-        <p>
-            Once you’re ready, your selected pieces can live here before checkout.
-            For now, return to the shop and keep browsing the collection.
-        </p>
+    <div class="cart-layout">
+        <div class="cart-items" id="cartItems"></div>
 
-        <div class="cart-actions">
-            <a href="shop.html" class="btn-main">Back to Shop</a>
-            <a href="about.html" class="btn-outline">About KÓLA</a>
+        <div class="summary-box">
+            <h2>Order Summary</h2>
+            <div class="summary-line">
+                <span>Subtotal</span>
+                <span id="subtotal">$0.00</span>
+            </div>
+            <div class="summary-line">
+                <span>Shipping</span>
+                <span>Calculated at checkout</span>
+            </div>
+
+            <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
+            <a href="shop.html" class="back-btn">Back to Shop</a>
         </div>
     </div>
 </div>
 
 <footer class="footer">
-    © 2026 Kóla Klöset — Rare pieces. No restocks. Built for presence.
+    © 2026 kólas.kloset — Rare pieces. No restocks. Built for presence.
 </footer>
 
 <script>
@@ -232,6 +309,45 @@ function goAbout() {
 function goCart() {
     window.location.href = 'cart.html';
 }
+
+function loadCart() {
+    const cart = JSON.parse(localStorage.getItem('kolaCart')) || [];
+    const cartItemsEl = document.getElementById('cartItems');
+    const subtotalEl = document.getElementById('subtotal');
+
+    if (cart.length === 0) {
+        cartItemsEl.innerHTML = '<div class="empty-cart">Your cart is currently empty.</div>';
+        subtotalEl.textContent = '$0.00';
+        return;
+    }
+
+    let subtotal = 0;
+
+    cartItemsEl.innerHTML = cart.map((item, index) => {
+        const lineTotal = item.price * item.quantity;
+        subtotal += lineTotal;
+
+        return `
+            <div class="cart-item">
+                <div class="item-name">${item.name}</div>
+                <div class="item-meta">Qty: ${item.quantity}</div>
+                <div class="item-total">$${lineTotal.toFixed(2)}</div>
+                <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+            </div>
+        `;
+    }).join('');
+
+    subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+}
+
+function removeItem(index) {
+    const cart = JSON.parse(localStorage.getItem('kolaCart')) || [];
+    cart.splice(index, 1);
+    localStorage.setItem('kolaCart', JSON.stringify(cart));
+    loadCart();
+}
+
+loadCart();
 </script>
 
 </body>
