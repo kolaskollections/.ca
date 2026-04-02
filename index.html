@@ -4,85 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Fonts (Luxury Feel) -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
-    <!-- Boxicons -->
+    <!-- Icons -->
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
 
+    <!-- CSS -->
     <link rel="stylesheet" href="css/styles.css">
 
     <title>KolasKollections</title>
-
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0d0d0d;
-            color: #f5f5f5;
-        }
-
-        .nav__logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-        }
-
-        .home__title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-        }
-
-        .button {
-            background: linear-gradient(135deg, #d4af37, #f5d77a);
-            color: black;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        .button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(212,175,55,0.4);
-        }
-
-        .featured__product {
-            background: #141414;
-            border-radius: 20px;
-            padding: 15px;
-            transition: 0.3s;
-        }
-
-        .featured__product:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            letter-spacing: 1px;
-        }
-
-        .footer {
-            background-color: #0a0a0a;
-        }
-    </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header class="l-header">
     <nav class="nav bd-grid">
         <div>
-            <a href="#" class="nav__logo">KOLASKLOSET</a>
+            <a href="#" class="nav__logo">KolasKollections</a>
         </div>
 
         <div class="nav__menu" id="nav-menu">
             <ul class="nav__list">
                 <li><a href="#home" class="nav__link active">Home</a></li>
-                <li><a href="#featured" class="nav__link">Shop</a></li>
-                <li><a href="#new" class="nav__link">Drops</a></li>
-                <li><a href="#subscribed" class="nav__link">Contact</a></li>
+                <li><a href="#featured" class="nav__link">Drops</a></li>
+                <li><a href="#new" class="nav__link">Vintage Finds</a></li>
+                <li><a href="#subscribed" class="nav__link">Community</a></li>
             </ul>
         </div>
 
@@ -93,108 +38,166 @@
     </nav>
 </header>
 
-<main>
+<main class="l-main">
 
+<!-- HOME -->
 <section class="home" id="home">
     <div class="home__container bd-grid">
         <div class="home__data">
-            <h1 class="home__title">KOLASKOLLECTIONS</h1>
-            <p style="margin: 15px 0; opacity:0.7;">Luxury streetwear. Refined identity.</p>
-            <a href="#featured" class="button">ENTER STORE</a>
+            <h1 class="home__title">KOLA <br><span>KLOWT</span></h1>
+            <p style="margin:10px 0 20px; opacity:0.7;">
+                Curated thrift. Timeless pieces. Elevated streetwear.
+            </p>
+            <a href="#featured" class="button">SHOP THE DROP</a>
         </div>
-        <img src="img/home.png" class="home__img">
+
+        <img src="img/1.png" class="home__img" alt="">
     </div>
 </section>
 
+<!-- COLLECTION -->
+<section class="collection section">
+    <div class="collection__container bd-grid">
+
+        <div class="collection__box">
+            <img src="img/2.png" class="collection__img">
+            <div class="collection__data">
+                <h2 class="collection__title">
+                    <span class="collection__subtitle">Men</span><br>Vintage Fits
+                </h2>
+                <a href="#" class="collection__view">Explore</a>
+            </div>
+        </div>
+
+        <div class="collection__box">
+            <div class="collection__data">
+                <h2 class="collection__title">
+                    <span class="collection__subtitle">Women</span><br>Thrift Luxe
+                </h2>
+                <a href="#" class="collection__view">Explore</a>
+            </div>
+            <img src="img/3.png" class="collection__img">
+        </div>
+
+    </div>
+</section>
+
+<!-- FEATURED -->
 <section class="featured section" id="featured">
-    <h2 class="section-title">SHOP COLLECTION</h2>
+    <h2 class="section-title">LATEST DROPS</h2>
+    <a href="#" class="section-all">View All</a>
 
     <div class="featured__container bd-grid">
 
         <div class="featured__product">
-            <img src="img/feature1.png" class="featured__img">
+            <div class="featured__box">
+                <div class="featured__new">RARE</div>
+                <img src="img/4.png" class="featured__img">
+            </div>
             <div class="featured__data">
-                <h3>Signature Hoodie</h3>
-                <span>$85</span>
+                <h3 class="featured__name">Vintage Leather Jacket</h3>
+                <span class="featured__price">$85</span>
             </div>
         </div>
 
         <div class="featured__product">
-            <img src="img/feature2.png" class="featured__img">
+            <div class="featured__box">
+                <div class="featured__new">HOT</div>
+                <img src="img/5.png" class="featured__img">
+            </div>
             <div class="featured__data">
-                <h3>Essential Tee</h3>
-                <span>$45</span>
+                <h3 class="featured__name">Oversized Graphic Tee</h3>
+                <span class="featured__price">$25</span>
             </div>
         </div>
 
         <div class="featured__product">
-            <img src="img/feature3.png" class="featured__img">
-            <div class="featured__data">
-                <h3>Tailored Cargo</h3>
-                <span>$110</span>
+            <div class="featured__box">
+                <div class="featured__new">1/1</div>
+                <img src="img/6.png" class="featured__img">
             </div>
-        </div>
-
-        <div class="featured__product">
-            <img src="img/feature4.png" class="featured__img">
             <div class="featured__data">
-                <h3>Minimal Jacket</h3>
-                <span>$160</span>
+                <h3 class="featured__name">Retro Denim</h3>
+                <span class="featured__price">$60</span>
             </div>
         </div>
 
     </div>
 </section>
 
+<!-- OFFER -->
+<section class="offer section">
+    <div class="offer__bg">
+        <div class="offer__data">
+            <h2 class="offer__title">Weekly Thrift Drop</h2>
+            <p class="offer__description">
+                Limited pieces. Once it's gone, it's gone.
+            </p>
+            <a href="#" class="button">GRAB YOUR PIECE</a>
+        </div>
+    </div>
+</section>
+
+<!-- NEW -->
 <section class="featured section" id="new">
-    <h2 class="section-title">LATEST DROP</h2>
+    <h2 class="section-title">VINTAGE FINDS</h2>
 
     <div class="new__container bd-grid">
-        <div class="new__box">
-            <img src="img/new1.png" class="new__img">
-        </div>
-        <div class="new__box">
-            <img src="img/new2.png" class="new__img">
-        </div>
-        <div class="new__box">
-            <img src="img/new3.png" class="new__img">
-        </div>
+
+        <div class="new__box"><img src="img/7.png" class="new__img"></div>
+        <div class="new__box"><img src="img/8.png" class="new__img"></div>
+        <div class="new__box"><img src="img/9.png" class="new__img"></div>
+        <div class="new__box"><img src="img/10.png" class="new__img"></div>
+
     </div>
 </section>
 
+<!-- NEWSLETTER -->
 <section class="newsletter section" id="subscribed">
     <div class="newsletter__container bd-grid">
-        <div>
-            <h2 class="section-title">JOIN THE BRAND</h2>
-            <p style="opacity:0.7;">Be first to access exclusive drops.</p>
-            <input type="text" placeholder="Email" style="padding:10px; margin-top:10px; border-radius:20px; border:none;">
+        <div class="newsletter__subscribed">
+            <h2 class="section-title">JOIN THE KLOWT</h2>
+            <p class="newsletter__description">
+                Early access to drops + exclusive thrift pieces.
+            </p>
+
+            <form class="newsletter__form">
+                <input type="text" class="newsletter__input" placeholder="Enter your email">
+                <a href="#" class="button">JOIN</a>
+            </form>
         </div>
     </div>
 </section>
 
 </main>
 
+<!-- FOOTER -->
 <footer class="footer section">
     <div class="footer__container bd-grid">
-        <div>
-            <h3>KOLASKLOSER</h3>
-            <p style="opacity:0.6;">Elevated streetwear brand</p>
+
+        <div class="footer__box">
+            <h3 class="footer__title">Kola Klowt</h3>
+            <p class="footer__deal">Curated thrift & streetwear</p>
         </div>
 
-        <div>
-            <h3>Explore</h3>
-            <p>Shop</p>
-            <p>Drops</p>
+        <div class="footer__box">
+            <h3 class="footer__title">Explore</h3>
+            <ul>
+                <li><a href="#" class="footer__link">Home</a></li>
+                <li><a href="#" class="footer__link">Drops</a></li>
+                <li><a href="#" class="footer__link">Vintage</a></li>
+            </ul>
         </div>
 
-        <div>
-            <h3>Follow</h3>
-            <i class='bx bxl-instagram'></i>
-            <i class='bx bxl-twitter'></i>
+        <div class="footer__box">
+            <h3 class="footer__title">Follow</h3>
+            <a href="#" class="footer__social"><i class='bx bxl-instagram'></i></a>
+            <a href="#" class="footer__social"><i class='bx bxl-tiktok'></i></a>
         </div>
+
     </div>
 
-    <p style="text-align:center; opacity:0.5;">© 2026 Kolaskloset</p>
+    <p class="footer__copy">© Kolas Kollections</p>
 </footer>
 
 <script src="js/main.js"></script>
