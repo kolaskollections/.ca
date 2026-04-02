@@ -10,7 +10,6 @@
 <style>
 :root {
     --bg: #0a0a0a;
-    --bg-soft: #121212;
     --text: #f5f1ea;
     --accent: #d87a1d;
     --accent-soft: #efc48d;
@@ -31,7 +30,7 @@ html {
 
 body {
     background:
-        radial-gradient(circle at top left, rgba(216, 122, 29, 0.06), transparent 26%),
+        radial-gradient(circle at top left, rgba(216, 122, 29, 0.05), transparent 24%),
         linear-gradient(to bottom, #0a0a0a 0%, #0d0d0d 48%, #111 100%);
     color: var(--text);
     font-family: "Times New Roman", serif;
@@ -54,7 +53,7 @@ img {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 22px 0;
+    padding: 20px 0;
     z-index: 1000;
     background: rgba(10, 10, 10, 0.86);
     backdrop-filter: blur(10px);
@@ -112,19 +111,12 @@ img {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    padding: 130px 0 90px;
+    padding: 130px 0 100px;
     position: relative;
     overflow: hidden;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
     background:
-        radial-gradient(circle at 22% 38%, rgba(216, 122, 29, 0.14), transparent 32%),
-        radial-gradient(circle at 78% 20%, rgba(255, 255, 255, 0.035), transparent 20%);
-    pointer-events: none;
+        linear-gradient(rgba(10, 10, 10, 0.26), rgba(10, 10, 10, 0.68)),
+        radial-gradient(circle at 22% 38%, rgba(216, 122, 29, 0.12), transparent 32%);
 }
 
 .hero::after {
@@ -132,7 +124,7 @@ img {
     position: absolute;
     inset: auto 0 0 0;
     height: 140px;
-    background: linear-gradient(to bottom, transparent, rgba(10, 10, 10, 0.92));
+    background: linear-gradient(to bottom, transparent, rgba(10, 10, 10, 0.95));
     pointer-events: none;
 }
 
@@ -141,23 +133,31 @@ img {
     margin: 0 auto;
     position: relative;
     z-index: 2;
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 40px;
-    align-items: center;
 }
 
 .hero-copy {
-    max-width: 700px;
+    max-width: 760px;
+}
+
+.hero-kicker {
+    font-size: 11px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+    margin-bottom: 22px;
 }
 
 .hero h1 {
-    font-size: clamp(48px, 8vw, 94px);
+    font-size: clamp(54px, 10vw, 118px);
     font-weight: 400;
-    letter-spacing: 3px;
     text-transform: uppercase;
-    line-height: 0.93;
-    margin-bottom: 14px;
+    line-height: 0.88;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+}
+
+.hero .line-break {
+    display: block;
 }
 
 .hero .tagline {
@@ -165,53 +165,22 @@ img {
     font-style: italic;
     font-size: clamp(24px, 3vw, 34px);
     color: var(--accent-soft);
-    margin-bottom: 0;
-    letter-spacing: 0.4px;
+    margin-bottom: 28px;
+    letter-spacing: 0.3px;
 }
 
-.hero-side {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.hero-panel {
-    width: min(360px, 100%);
-    aspect-ratio: 4 / 5;
-    background:
-        linear-gradient(145deg, rgba(216, 122, 29, 0.06), rgba(255,255,255,0.015)),
-        #141414;
-    border: 1px solid rgba(216, 122, 29, 0.12);
-    display: flex;
-    align-items: end;
-    justify-content: flex-start;
-    padding: 28px;
-    position: relative;
-}
-
-.hero-panel::before {
-    content: '';
-    position: absolute;
-    inset: 18px;
-    border: 1px solid rgba(216, 122, 29, 0.10);
-    pointer-events: none;
-}
-
-.hero-panel-text {
-    position: relative;
-    z-index: 1;
-    font-size: 12px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--muted);
+.hero-subtle {
+    max-width: 520px;
+    font-size: 15px;
     line-height: 1.8;
+    color: #bdb5aa;
 }
 
 /* CONTENT */
 .content {
     width: min(1180px, calc(100% - 40px));
     margin: 0 auto;
-    padding: 40px 0 110px;
+    padding: 20px 0 110px;
 }
 
 .section {
@@ -268,8 +237,7 @@ img {
 .card-image {
     width: 100%;
     aspect-ratio: 3 / 4;
-    background:
-        linear-gradient(135deg, #272727, #171717);
+    background: linear-gradient(135deg, #272727, #171717);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -340,14 +308,6 @@ img {
 
 /* RESPONSIVE */
 @media (max-width: 1024px) {
-    .hero-inner {
-        grid-template-columns: 1fr;
-    }
-
-    .hero-side {
-        justify-content: flex-start;
-    }
-
     .grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -377,16 +337,15 @@ img {
     }
 
     .hero {
-        padding: 110px 0 70px;
+        padding: 110px 0 80px;
     }
 
-    .hero-panel {
-        width: 100%;
-        max-width: 300px;
+    .hero-subtle {
+        font-size: 14px;
     }
 
     .content {
-        padding: 30px 0 70px;
+        padding: 20px 0 70px;
     }
 
     .grid {
@@ -424,17 +383,15 @@ img {
 <section class="hero">
     <div class="hero-inner">
         <div class="hero-copy">
-            <h1>KolaKollections</h1>
+            <div class="hero-kicker">kólas.kloset</div>
+            <h1>
+                <span class="line-break">Kolas</span>
+                <span class="line-break">Kollections</span>
+            </h1>
             <div class="tagline">Rare pieces. Built for presence.</div>
-        </div>
-
-        <div class="hero-side">
-            <div class="hero-panel">
-                <div class="hero-panel-text">
-                    Editorial selections.<br>
-                    Intentional drops.<br>
-                    Built to be looked at twice.
-                </div>
+            <div class="hero-subtle">
+                Curated drops for people who want their clothes to say something
+                before they do.
             </div>
         </div>
     </div>
