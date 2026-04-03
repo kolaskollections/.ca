@@ -305,6 +305,20 @@ button {
     letter-spacing: 1px;
     margin-bottom: 16px;
 }
+    .card-stock {
+    font-size: 11px;
+    color: var(--accent-soft);
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+}
+
+.add-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    background: #2a2a2a;
+    color: #999;
+    border-color: #333;
+}
 
 .add-btn {
     width: 100%;
@@ -618,6 +632,8 @@ button {
 </footer>
 
 <script>
+const INVENTORY_URL = "https://stripe-backend-m9du.onrender.com/inventory";
+
 function goHome() {
     window.location.href = 'index.html';
 }
@@ -648,9 +664,15 @@ function updateCartCount() {
     document.getElementById('cartCount').textContent = totalItems;
 }
 
-function addToCart(name, price) {
+function addToCart(name, price, maxStock = null) {
     const cart = getCart();
     const existingItem = cart.find(item => item.name === name);
+    const currentQty = existingItem ? existingItem.quantity : 0;
+
+    if (maxStock !== null && currentQty >= maxStock) {
+        loadInventory();
+        return;
+    }
 
     if (existingItem) {
         existingItem.quantity += 1;
@@ -660,9 +682,97 @@ function addToCart(name, price) {
 
     saveCart(cart);
     updateCartCount();
+    loadInventory();
+}
+
+async function loadInventory() {
+    try {
+        const res = await fetch(INVENTORY_URL);
+        const inventory = await res.json();
+
+        updateProductCard("Vintage Piece", inventory["Vintage Piece"]);
+        updateProductCard("Rare Find", inventory["Rare Find"]);
+        updateProductCard("Classic Thrift", inventory["Classic Thrift"]);
+        updateProductCard("Luxury Vintage", inventory["Luxury Vintage"]);
+        updateProductCard("Designer Piece", inventory["Designer Piece"]);
+        updateProductCard("Curated Find", inventory["Curated Find"]);
+        updateProductCard("Structured Top", inventory["Structured Top"]);
+        updateProductCard("Statement Blouse", inventory["Statement Blouse"]);
+        updateProductCard("Vintage Knit", inventory["Vintage Knit"]);
+        updateProductCard("Tailored Trouser", inventory["Tailored Trouser"]);
+        updateProductCard("Wide Leg Denim", inventory["Wide Leg Denim"]);
+        updateProductCard("Vintage Skirt", inventory["Vintage Skirt"]);
+        updateProductCard("Leather Bag", inventory["Leather Bag"]);
+        updateProductCard("Statement Heel", inventory["Statement Heel"]);
+        updateProductCard("Vintage Sunglasses", inventory["Vintage Sunglasses"]);
+
+    } catch (err) {
+        console.error("Inventory load failed:", err);
+    }
+}
+
+function updateProductCard(productName, productData) {
+    if (!productData) return;
+
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+        const nameEl = card.querySelector(".card-name");
+        const priceEl = card.querySelector(".card-price");
+        const btn = card.querySelector(".add-btn");
+
+        if (!nameEl || !priceEl || !btn) return;
+
+        if (nameEl.textContent.trim() === productName) {
+            const backendPrice = Number(productData.price) || 0;
+            const backendStock = Number(productData.stock) || 0;
+
+            priceEl.textContent = `$${backendPrice.toFixed(2)}`;
+
+            let stockEl = card.querySelector(".card-stock");
+            if (!stockEl) {
+                stockEl = document.createElement("div");
+                stockEl.className = "card-stock";
+                priceEl.insertAdjacentElement("afterend", stockEl);
+            }
+
+            const cart = getCart();
+            const cartItem = cart.find(item => item.name === productName);
+            const qtyInCart = cartItem ? cartItem.quantity : 0;
+            const remaining = backendStock - qtyInCart;
+
+            if (remaining <= 0) {
+                stockEl.textContent = "Sold out";
+                btn.disabled = true;
+                btn.textContent = "Sold Out";
+            } else if (remaining === 1) {
+                stockEl.textContent = "Only 1 left";
+                btn.disabled = false;
+                btn.textContent = "Add to Cart";
+            } else {
+                stockEl.textContent = `In stock: ${remaining}`;
+                btn.disabled = false;
+                btn.textContent = "Add to Cart";
+            }
+
+            btn.onclick = function () {
+                const currentCart = getCart();
+                const currentItem = currentCart.find(item => item.name === productName);
+                const currentQty = currentItem ? currentItem.quantity : 0;
+
+                if (currentQty >= backendStock) {
+                    loadInventory();
+                    return;
+                }
+
+                addToCart(productName, backendPrice, backendStock);
+            };
+        }
+    });
 }
 
 updateCartCount();
+loadInventory();
 </script>
 
 </body>
