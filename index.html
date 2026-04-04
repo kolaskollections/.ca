@@ -245,10 +245,17 @@ img {
     font-size: 13px;
     letter-spacing: 2px;
     transition: 0.35s;
+    overflow: hidden;
 }
 
 .card:hover .card-image {
     background: linear-gradient(135deg, #323232, #1d1d1d);
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .card-info {
@@ -405,24 +412,30 @@ img {
         </div>
 
         <div class="grid">
-            <a href="shop.html#new-arrivals" class="card">
-                <div class="card-image">Arrival 01</div>
+            <a href="product.html?id=vintage-piece" class="card">
+                <div class="card-image">
+                    <img src="./images/vintage-piece-1.jpg" alt="Vintage Piece" onerror="this.remove(); this.parentNode.textContent='Arrival 01';">
+                </div>
                 <div class="card-info">
                     <div class="card-name">Vintage Piece</div>
                     <div class="card-price">$89.00</div>
                 </div>
             </a>
 
-            <a href="shop.html#new-arrivals" class="card">
-                <div class="card-image">Arrival 02</div>
+            <a href="product.html?id=rare-find" class="card">
+                <div class="card-image">
+                    <img src="./images/rare-find-1.jpg" alt="Rare Find" onerror="this.remove(); this.parentNode.textContent='Arrival 02';">
+                </div>
                 <div class="card-info">
                     <div class="card-name">Rare Find</div>
                     <div class="card-price">$125.00</div>
                 </div>
             </a>
 
-            <a href="shop.html#new-arrivals" class="card">
-                <div class="card-image">Arrival 03</div>
+            <a href="product.html?id=classic-thrift" class="card">
+                <div class="card-image">
+                    <img src="./images/classic-thrift-1.jpg" alt="Classic Thrift" onerror="this.remove(); this.parentNode.textContent='Arrival 03';">
+                </div>
                 <div class="card-info">
                     <div class="card-name">Classic Thrift</div>
                     <div class="card-price">$95.00</div>
@@ -442,24 +455,30 @@ img {
         </div>
 
         <div class="grid">
-            <a href="shop.html#kola-picks" class="card">
-                <div class="card-image">Pick 01</div>
+            <a href="product.html?id=luxury-vintage" class="card">
+                <div class="card-image">
+                    <img src="./images/luxury-vintage-1.jpg" alt="Luxury Vintage" onerror="this.remove(); this.parentNode.textContent='Pick 01';">
+                </div>
                 <div class="card-info">
                     <div class="card-name">Luxury Vintage</div>
                     <div class="card-price">$210.00</div>
                 </div>
             </a>
 
-            <a href="shop.html#kola-picks" class="card">
-                <div class="card-image">Pick 02</div>
+            <a href="product.html?id=designer-piece" class="card">
+                <div class="card-image">
+                    <img src="./images/designer-piece-1.jpg" alt="Designer Piece" onerror="this.remove(); this.parentNode.textContent='Pick 02';">
+                </div>
                 <div class="card-info">
                     <div class="card-name">Designer Piece</div>
                     <div class="card-price">$180.00</div>
                 </div>
             </a>
 
-            <a href="shop.html#kola-picks" class="card">
-                <div class="card-image">Pick 03</div>
+            <a href="product.html?id=curated-find" class="card">
+                <div class="card-image">
+                    <img src="./images/curated-find-1.jpg" alt="Curated Find" onerror="this.remove(); this.parentNode.textContent='Pick 03';">
+                </div>
                 <div class="card-info">
                     <div class="card-name">Curated Find</div>
                     <div class="card-price">$110.00</div>
@@ -496,6 +515,9 @@ function goCart() {
     window.location.href = 'cart.html';
 }
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
