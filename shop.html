@@ -246,7 +246,7 @@ button {
 .section-title {
     font-size: 12px;
     letter-spacing: 6px;
-    color: var(--accent); /* changed from muted → brand orange */
+    color: var(--accent);
     text-transform: uppercase;
 }
 
@@ -275,6 +275,11 @@ button {
     border-color: rgba(216, 122, 29, 0.24);
 }
 
+.card-clickable {
+    display: block;
+    cursor: pointer;
+}
+
 .card-image {
     width: 100%;
     aspect-ratio: 3 / 4;
@@ -285,6 +290,13 @@ button {
     color: var(--muted);
     font-size: 13px;
     letter-spacing: 2px;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .card-info {
@@ -305,7 +317,8 @@ button {
     letter-spacing: 1px;
     margin-bottom: 16px;
 }
-    .card-stock {
+
+.card-stock {
     font-size: 11px;
     color: var(--accent-soft);
     margin-bottom: 12px;
@@ -455,34 +468,7 @@ button {
             <h2 class="section-title">New Arrivals</h2>
         </div>
 
-        <div class="grid">
-            <div class="card">
-                <div class="card-image">Arrival 01</div>
-                <div class="card-info">
-                    <div class="card-name">Vintage Piece</div>
-                    <div class="card-price">$5.00</div>
-                    <button class="add-btn" onclick="addToCart('Vintage Piece', 5)">Add to Cart</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-image">Arrival 02</div>
-                <div class="card-info">
-                    <div class="card-name">Rare Find</div>
-                    <div class="card-price">$10.00</div>
-                    <button class="add-btn" onclick="addToCart('Rare Find', 10)">Add to Cart</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-image">Arrival 03</div>
-                <div class="card-info">
-                    <div class="card-name">Classic Thrift</div>
-                    <div class="card-price">$5.00</div>
-                    <button class="add-btn" onclick="addToCart('Classic Thrift', 5)">Add to Cart</button>
-                </div>
-            </div>
-        </div>
+        <div class="grid" id="new-arrivals-grid"></div>
     </section>
 
     <section class="shop-section" id="kola-picks">
@@ -490,34 +476,7 @@ button {
             <h2 class="section-title">Kóla Picks</h2>
         </div>
 
-        <div class="grid">
-            <div class="card">
-                <div class="card-image">Pick 01</div>
-                <div class="card-info">
-                    <div class="card-name">Luxury Vintage</div>
-                    <div class="card-price">$20.00</div>
-                    <button class="add-btn" onclick="addToCart('Luxury Vintage', 20)">Add to Cart</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-image">Pick 02</div>
-                <div class="card-info">
-                    <div class="card-name">Designer Piece</div>
-                    <div class="card-price">$10.00</div>
-                    <button class="add-btn" onclick="addToCart('Designer Piece', 10)">Add to Cart</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-image">Pick 03</div>
-                <div class="card-info">
-                    <div class="card-name">Curated Find</div>
-                    <div class="card-price">$30.00</div>
-                    <button class="add-btn" onclick="addToCart('Curated Find', 30)">Add to Cart</button>
-                </div>
-            </div>
-        </div>
+        <div class="grid" id="kola-picks-grid"></div>
     </section>
 
     <section class="shop-section" id="tops">
@@ -525,34 +484,7 @@ button {
             <h2 class="section-title">Tops</h2>
         </div>
 
-        <div class="grid">
-            <div class="card">
-                <div class="card-image">Top 01</div>
-                <div class="card-info">
-                    <div class="card-name">Structured Top</div>
-                    <div class="card-price">$22.00</div>
-                    <button class="add-btn" onclick="addToCart('Structured Top', 22)">Add to Cart</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-image">Top 02</div>
-                <div class="card-info">
-                    <div class="card-name">Statement Blouse</div>
-                    <div class="card-price">$10.00</div>
-                    <button class="add-btn" onclick="addToCart('Statement Blouse', 10)">Add to Cart</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-image">Top 03</div>
-                <div class="card-info">
-                    <div class="card-name">Vintage Knit</div>
-                    <div class="card-price">$68.00</div>
-                    <button class="add-btn" onclick="addToCart('Vintage Knit', 68)">Add to Cart</button>
-                </div>
-            </div>
-        </div>
+        <div class="grid" id="tops-grid"></div>
     </section>
 
     <section class="shop-section" id="bottoms">
@@ -560,34 +492,7 @@ button {
             <h2 class="section-title">Bottoms</h2>
         </div>
 
-        <div class="grid">
-            <div class="card">
-                <div class="card-image">Bottom 01</div>
-                <div class="card-info">
-                    <div class="card-name">Tailored Trouser</div>
-                    <div class="card-price">$96.00</div>
-                    <button class="add-btn" onclick="addToCart('Tailored Trouser', 96)">Add to Cart</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-image">Bottom 02</div>
-                <div class="card-info">
-                    <div class="card-name">Wide Leg Denim</div>
-                    <div class="card-price">$50.00</div>
-                    <button class="add-btn" onclick="addToCart('Wide Leg Denim', 88)">Add to Cart</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-image">Bottom 03</div>
-                <div class="card-info">
-                    <div class="card-name">Vintage Skirt</div>
-                    <div class="card-price">$74.00</div>
-                    <button class="add-btn" onclick="addToCart('Vintage Skirt', 74)">Add to Cart</button>
-                </div>
-            </div>
-        </div>
+        <div class="grid" id="bottoms-grid"></div>
     </section>
 
     <section class="shop-section" id="shoes-accessories">
@@ -595,34 +500,7 @@ button {
             <h2 class="section-title">Shoes / Accessories</h2>
         </div>
 
-        <div class="grid">
-            <div class="card">
-                <div class="card-image">Accessory 01</div>
-                <div class="card-info">
-                    <div class="card-name">Leather Bag</div>
-                    <div class="card-price">$145.00</div>
-                    <button class="add-btn" onclick="addToCart('Leather Bag', 145)">Add to Cart</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-image">Accessory 02</div>
-                <div class="card-info">
-                    <div class="card-name">Statement Heel</div>
-                    <div class="card-price">$132.00</div>
-                    <button class="add-btn" onclick="addToCart('Statement Heel', 132)">Add to Cart</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-image">Accessory 03</div>
-                <div class="card-info">
-                    <div class="card-name">Vintage Sunglasses</div>
-                    <div class="card-price">$58.00</div>
-                    <button class="add-btn" onclick="addToCart('Vintage Sunglasses', 58)">Add to Cart</button>
-                </div>
-            </div>
-        </div>
+        <div class="grid" id="shoes-accessories-grid"></div>
     </section>
 
 </div>
@@ -634,55 +512,247 @@ button {
 <script>
 const INVENTORY_URL = "https://stripe-backend-m9du.onrender.com/inventory";
 
+const PRODUCTS = [
+    {
+        id: "vintage-piece",
+        name: "Vintage Piece",
+        category: "new-arrivals",
+        price: 5,
+        description: "A rare vintage piece with a strong silhouette and everyday edge.",
+        images: ["./images/vintage-piece-1.jpg", "./images/vintage-piece-2.jpg", "./images/vintage-piece-3.jpg"],
+        imageLabel: "Arrival 01"
+    },
+    {
+        id: "rare-find",
+        name: "Rare Find",
+        category: "new-arrivals",
+        price: 10,
+        description: "A hard-to-find thrifted piece selected for texture, shape, and presence.",
+        images: ["./images/rare-find-1.jpg", "./images/rare-find-2.jpg", "./images/rare-find-3.jpg"],
+        imageLabel: "Arrival 02"
+    },
+    {
+        id: "classic-thrift",
+        name: "Classic Thrift",
+        category: "new-arrivals",
+        price: 5,
+        description: "Classic thrift styling with a clean, wearable finish.",
+        images: ["./images/classic-thrift-1.jpg", "./images/classic-thrift-2.jpg", "./images/classic-thrift-3.jpg"],
+        imageLabel: "Arrival 03"
+    },
+    {
+        id: "luxury-vintage",
+        name: "Luxury Vintage",
+        category: "kola-picks",
+        price: 20,
+        description: "A standout vintage selection with elevated detailing and character.",
+        images: ["./images/luxury-vintage-1.jpg", "./images/luxury-vintage-2.jpg", "./images/luxury-vintage-3.jpg"],
+        imageLabel: "Pick 01"
+    },
+    {
+        id: "designer-piece",
+        name: "Designer Piece",
+        category: "kola-picks",
+        price: 10,
+        description: "Curated for impact, structure, and styling versatility.",
+        images: ["./images/designer-piece-1.jpg", "./images/designer-piece-2.jpg", "./images/designer-piece-3.jpg"],
+        imageLabel: "Pick 02"
+    },
+    {
+        id: "curated-find",
+        name: "Curated Find",
+        category: "kola-picks",
+        price: 30,
+        description: "A carefully selected statement piece from the kólas.kloset edit.",
+        images: ["./images/curated-find-1.jpg", "./images/curated-find-2.jpg", "./images/curated-find-3.jpg"],
+        imageLabel: "Pick 03"
+    },
+    {
+        id: "structured-top",
+        name: "Structured Top",
+        category: "tops",
+        price: 22,
+        description: "A sharp top designed to hold shape and elevate a simple look.",
+        images: ["./images/structured-top-1.jpg", "./images/structured-top-2.jpg", "./images/structured-top-3.jpg"],
+        imageLabel: "Top 01"
+    },
+    {
+        id: "statement-blouse",
+        name: "Statement Blouse",
+        category: "tops",
+        price: 10,
+        description: "A blouse with enough character to carry the whole outfit.",
+        images: ["./images/statement-blouse-1.jpg", "./images/statement-blouse-2.jpg", "./images/statement-blouse-3.jpg"],
+        imageLabel: "Top 02"
+    },
+    {
+        id: "vintage-knit",
+        name: "Vintage Knit",
+        category: "tops",
+        price: 68,
+        description: "A textured knit with vintage appeal and easy layering potential.",
+        images: ["./images/vintage-knit-1.jpg", "./images/vintage-knit-2.jpg", "./images/vintage-knit-3.jpg"],
+        imageLabel: "Top 03"
+    },
+    {
+        id: "tailored-trouser",
+        name: "Tailored Trouser",
+        category: "bottoms",
+        price: 96,
+        description: "A polished trouser with a tailored fit and clean line.",
+        images: ["./images/tailored-trouser-1.jpg", "./images/tailored-trouser-2.jpg", "./images/tailored-trouser-3.jpg"],
+        imageLabel: "Bottom 01"
+    },
+    {
+        id: "wide-leg-denim",
+        name: "Wide Leg Denim",
+        category: "bottoms",
+        price: 50,
+        description: "Wide-leg denim with structure, movement, and styling range.",
+        images: ["./images/wide-leg-denim-1.jpg", "./images/wide-leg-denim-2.jpg", "./images/wide-leg-denim-3.jpg"],
+        imageLabel: "Bottom 02"
+    },
+    {
+        id: "vintage-skirt",
+        name: "Vintage Skirt",
+        category: "bottoms",
+        price: 74,
+        description: "A vintage skirt that brings shape and softness to a look.",
+        images: ["./images/vintage-skirt-1.jpg", "./images/vintage-skirt-2.jpg", "./images/vintage-skirt-3.jpg"],
+        imageLabel: "Bottom 03"
+    },
+    {
+        id: "leather-bag",
+        name: "Leather Bag",
+        category: "shoes-accessories",
+        price: 145,
+        description: "A structured leather bag with timeless styling value.",
+        images: ["./images/leather-bag-1.jpg", "./images/leather-bag-2.jpg", "./images/leather-bag-3.jpg"],
+        imageLabel: "Accessory 01"
+    },
+    {
+        id: "statement-heel",
+        name: "Statement Heel",
+        category: "shoes-accessories",
+        price: 132,
+        description: "A standout heel chosen for shape, finish, and presence.",
+        images: ["./images/statement-heel-1.jpg", "./images/statement-heel-2.jpg", "./images/statement-heel-3.jpg"],
+        imageLabel: "Accessory 02"
+    },
+    {
+        id: "vintage-sunglasses",
+        name: "Vintage Sunglasses",
+        category: "shoes-accessories",
+        price: 58,
+        description: "Vintage sunglasses that finish the look without trying too hard.",
+        images: ["./images/vintage-sunglasses-1.jpg", "./images/vintage-sunglasses-2.jpg", "./images/vintage-sunglasses-3.jpg"],
+        imageLabel: "Accessory 03"
+    }
+];
+
 function goHome() {
-    window.location.href = 'index.html';
+    window.location.href = "index.html";
 }
 
 function goShop() {
-    window.location.href = 'shop.html';
+    window.location.href = "shop.html";
 }
 
 function goAbout() {
-    window.location.href = 'about.html';
+    window.location.href = "about.html";
 }
 
 function goCart() {
-    window.location.href = 'cart.html';
+    window.location.href = "cart.html";
 }
 
 function getCart() {
-    return JSON.parse(localStorage.getItem('kolaCart')) || [];
+    return JSON.parse(localStorage.getItem("kolaCart")) || [];
 }
 
 function saveCart(cart) {
-    localStorage.setItem('kolaCart', JSON.stringify(cart));
+    localStorage.setItem("kolaCart", JSON.stringify(cart));
 }
 
 function updateCartCount() {
     const cart = getCart();
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    document.getElementById('cartCount').textContent = totalItems;
+    document.getElementById("cartCount").textContent = totalItems;
 }
 
-function addToCart(name, price, maxStock = null) {
-    const cart = getCart();
-    const existingItem = cart.find(item => item.name === name);
-    const currentQty = existingItem ? existingItem.quantity : 0;
+function openProduct(productId) {
+    window.location.href = `product.html?id=${encodeURIComponent(productId)}`;
+}
 
-    if (maxStock !== null && currentQty >= maxStock) {
-        loadInventory();
-        return;
-    }
+function addToCart(product) {
+    const cart = getCart();
+    const existingItem = cart.find(item => item.id === product.id);
 
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
-        cart.push({ name, price, quantity: 1 });
+        cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.images[0],
+            quantity: 1
+        });
     }
 
     saveCart(cart);
     updateCartCount();
-    loadInventory();
+}
+
+function handleAddToCart(event, productId) {
+    event.stopPropagation();
+
+    const product = PRODUCTS.find(item => item.id === productId);
+    if (!product) return;
+
+    const card = event.target.closest(".card");
+    const btn = card.querySelector(".add-btn");
+    if (btn.disabled) return;
+
+    addToCart(product);
+}
+
+function renderProducts() {
+    const grids = {
+        "new-arrivals": document.getElementById("new-arrivals-grid"),
+        "kola-picks": document.getElementById("kola-picks-grid"),
+        "tops": document.getElementById("tops-grid"),
+        "bottoms": document.getElementById("bottoms-grid"),
+        "shoes-accessories": document.getElementById("shoes-accessories-grid")
+    };
+
+    Object.values(grids).forEach(grid => grid.innerHTML = "");
+
+    PRODUCTS.forEach(product => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.setAttribute("data-name", product.name);
+
+        card.innerHTML = `
+            <div class="card-clickable" onclick="openProduct('${product.id}')">
+                <div class="card-image">
+                    ${product.images[0]
+                        ? `<img src="${product.images[0]}" alt="${product.name}" onerror="this.remove(); this.parentNode.textContent='${product.imageLabel}';">`
+                        : product.imageLabel}
+                </div>
+                <div class="card-info">
+                    <div class="card-name">${product.name}</div>
+                    <div class="card-price">$${Number(product.price).toFixed(2)}</div>
+                    <div class="card-stock">Loading stock...</div>
+                </div>
+            </div>
+            <div class="card-info" style="padding-top: 0;">
+                <button class="add-btn" onclick="handleAddToCart(event, '${product.id}')">Add to Cart</button>
+            </div>
+        `;
+
+        grids[product.category].appendChild(card);
+    });
 }
 
 async function loadInventory() {
@@ -690,21 +760,9 @@ async function loadInventory() {
         const res = await fetch(INVENTORY_URL);
         const inventory = await res.json();
 
-        updateProductCard("Vintage Piece", inventory["Vintage Piece"]);
-        updateProductCard("Rare Find", inventory["Rare Find"]);
-        updateProductCard("Classic Thrift", inventory["Classic Thrift"]);
-        updateProductCard("Luxury Vintage", inventory["Luxury Vintage"]);
-        updateProductCard("Designer Piece", inventory["Designer Piece"]);
-        updateProductCard("Curated Find", inventory["Curated Find"]);
-        updateProductCard("Structured Top", inventory["Structured Top"]);
-        updateProductCard("Statement Blouse", inventory["Statement Blouse"]);
-        updateProductCard("Vintage Knit", inventory["Vintage Knit"]);
-        updateProductCard("Tailored Trouser", inventory["Tailored Trouser"]);
-        updateProductCard("Wide Leg Denim", inventory["Wide Leg Denim"]);
-        updateProductCard("Vintage Skirt", inventory["Vintage Skirt"]);
-        updateProductCard("Leather Bag", inventory["Leather Bag"]);
-        updateProductCard("Statement Heel", inventory["Statement Heel"]);
-        updateProductCard("Vintage Sunglasses", inventory["Vintage Sunglasses"]);
+        PRODUCTS.forEach(product => {
+            updateProductCard(product.name, inventory[product.name]);
+        });
 
     } catch (err) {
         console.error("Inventory load failed:", err);
@@ -736,44 +794,35 @@ function updateProductCard(productName, productData) {
                 priceEl.insertAdjacentElement("afterend", stockEl);
             }
 
-            const cart = getCart();
-            const cartItem = cart.find(item => item.name === productName);
-            const qtyInCart = cartItem ? cartItem.quantity : 0;
-            const remaining = backendStock - qtyInCart;
-
-            if (remaining <= 0) {
+            if (backendStock <= 0) {
                 stockEl.textContent = "Sold out";
                 btn.disabled = true;
                 btn.textContent = "Sold Out";
-            } else if (remaining === 1) {
+            } else if (backendStock === 1) {
                 stockEl.textContent = "Only 1 left";
                 btn.disabled = false;
                 btn.textContent = "Add to Cart";
             } else {
-                stockEl.textContent = `In stock: ${remaining}`;
+                stockEl.textContent = `In stock: ${backendStock}`;
                 btn.disabled = false;
                 btn.textContent = "Add to Cart";
             }
 
-            btn.onclick = function () {
-                const currentCart = getCart();
-                const currentItem = currentCart.find(item => item.name === productName);
-                const currentQty = currentItem ? currentItem.quantity : 0;
-
-                if (currentQty >= backendStock) {
-                    loadInventory();
-                    return;
-                }
-
-                addToCart(productName, backendPrice, backendStock);
-            };
+            const product = PRODUCTS.find(item => item.name === productName);
+            if (product) {
+                product.price = backendPrice;
+            }
         }
     });
 }
 
+renderProducts();
 updateCartCount();
 loadInventory();
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
