@@ -82,16 +82,63 @@ button {
 }
 
 .gallery-main {
+    position: relative;
     background: var(--panel);
     border: 1px solid rgba(216, 122, 29, 0.08);
     aspect-ratio: 4 / 5;
     overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: pan-y;
 }
 
 .gallery-main img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.gallery-zone {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.gallery-zone.left {
+    left: 0;
+}
+
+.gallery-zone.right {
+    right: 0;
+}
+
+.gallery-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    border: 1px solid rgba(216, 122, 29, 0.24);
+    background: rgba(10, 10, 10, 0.45);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0.9;
+}
+
+.gallery-arrow.left {
+    left: 14px;
+}
+
+.gallery-arrow.right {
+    right: 14px;
 }
 
 .thumb-row {
@@ -153,6 +200,7 @@ button {
     display: flex;
     gap: 12px;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .qty-btn,
@@ -213,9 +261,20 @@ button {
 
 <div class="product-wrap">
     <div>
-        <div class="gallery-main">
+        <div class="gallery-main" id="galleryMain">
+            <div class="gallery-zone left" onclick="showPrevImage()"></div>
+            <div class="gallery-zone right" onclick="showNextImage()"></div>
+
+            <div class="gallery-arrow left">
+                <i class="fa-solid fa-chevron-left"></i>
+            </div>
+            <div class="gallery-arrow right">
+                <i class="fa-solid fa-chevron-right"></i>
+            </div>
+
             <img id="mainImage" src="" alt="">
         </div>
+
         <div class="thumb-row" id="thumbRow"></div>
     </div>
 
@@ -350,6 +409,9 @@ const PRODUCTS = [
 let currentProduct = null;
 let selectedQty = 1;
 let currentStock = 0;
+let currentImageIndex = 0;
+let touchStartX = 0;
+let touchEndX = 0;
 
 function goBack() {
     window.location.href = "shop.html";
@@ -372,33 +434,54 @@ function getProductIdFromURL() {
     return params.get("id");
 }
 
+function updateMainImage() {
+    if (!currentProduct || !currentProduct.images.length) return;
+
+    const mainImage = document.getElementById("mainImage");
+    mainImage.src = currentProduct.images[currentImageIndex];
+    mainImage.alt = currentProduct.name;
+
+    document.querySelectorAll(".thumb").forEach((thumb, index) => {
+        thumb.classList.toggle("active", index === currentImageIndex);
+    });
+}
+
+function showPrevImage() {
+    if (!currentProduct || !currentProduct.images.length) return;
+    currentImageIndex = (currentImageIndex - 1 + currentProduct.images.length) % currentProduct.images.length;
+    updateMainImage();
+}
+
+function showNextImage() {
+    if (!currentProduct || !currentProduct.images.length) return;
+    currentImageIndex = (currentImageIndex + 1) % currentProduct.images.length;
+    updateMainImage();
+}
+
+function setMainImage(index) {
+    currentImageIndex = index;
+    updateMainImage();
+}
+
 function renderProduct(product) {
     document.getElementById("productTitle").textContent = product.name;
     document.getElementById("productPrice").textContent = `$${product.price.toFixed(2)}`;
     document.getElementById("productDescription").textContent = product.description;
 
-    const mainImage = document.getElementById("mainImage");
-    mainImage.src = product.images[0];
-    mainImage.alt = product.name;
-
     const thumbRow = document.getElementById("thumbRow");
     thumbRow.innerHTML = product.images.map((img, index) => `
-        <div class="thumb ${index === 0 ? "active" : ""}" onclick="setMainImage('${img}', this)">
+        <div class="thumb ${index === 0 ? "active" : ""}" onclick="setMainImage(${index})">
             <img src="${img}" alt="${product.name}">
         </div>
     `).join("");
-}
 
-function setMainImage(src, thumbEl) {
-    document.getElementById("mainImage").src = src;
-    document.querySelectorAll(".thumb").forEach(thumb => thumb.classList.remove("active"));
-    thumbEl.classList.add("active");
+    currentImageIndex = 0;
+    updateMainImage();
 }
 
 function changeQty(change) {
     const newQty = selectedQty + change;
     if (newQty < 1) return;
-    if (currentStock > 0 && newQty > currentStock) return;
     selectedQty = newQty;
     document.getElementById("qtyDisplay").textContent = selectedQty;
 }
@@ -443,9 +526,6 @@ function addCurrentProductToCart() {
 
     const cart = getCart();
     const existingItem = cart.find(item => item.id === currentProduct.id);
-    const alreadyInCart = existingItem ? existingItem.quantity : 0;
-
-    if (alreadyInCart + selectedQty > currentStock) return;
 
     if (existingItem) {
         existingItem.quantity += selectedQty;
@@ -463,6 +543,31 @@ function addCurrentProductToCart() {
     window.location.href = "cart.html";
 }
 
+function setupSwipe() {
+    const gallery = document.getElementById("galleryMain");
+
+    gallery.addEventListener("touchstart", (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    gallery.addEventListener("touchend", (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, { passive: true });
+}
+
+function handleSwipe() {
+    const swipeDistance = touchEndX - touchStartX;
+
+    if (Math.abs(swipeDistance) < 40) return;
+
+    if (swipeDistance < 0) {
+        showNextImage();
+    } else {
+        showPrevImage();
+    }
+}
+
 function initPage() {
     const productId = getProductIdFromURL();
     currentProduct = PRODUCTS.find(product => product.id === productId);
@@ -474,10 +579,13 @@ function initPage() {
 
     renderProduct(currentProduct);
     loadInventoryForProduct(currentProduct);
+    setupSwipe();
 }
 
 initPage();
 </script>
 
+</body>
+</html>
 </body>
 </html>
