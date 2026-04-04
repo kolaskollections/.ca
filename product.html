@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product — kólas.kloset</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg: #0a0a0a;
+    --panel: #171717;
+    --text: #f5f1ea;
+    --accent: #d87a1d;
+    --accent-soft: #efc48d;
+    --muted: #8d857b;
+    --line: rgba(216, 122, 29, 0.14);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(to bottom, #0a0a0a, #101010);
+    color: var(--text);
+    font-family: "Times New Roman", serif;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button {
+    font-family: inherit;
+}
+
+.nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(10, 10, 10, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(216, 122, 29, 0.07);
+}
+
+.nav-inner {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 18px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.back-link,
+.cart-link {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    cursor: pointer;
+}
+
+.back-link:hover,
+.cart-link:hover {
+    color: var(--accent);
+}
+
+.product-wrap {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 50px 0 80px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+}
+
+.gallery-main {
+    background: var(--panel);
+    border: 1px solid rgba(216, 122, 29, 0.08);
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+}
+
+.gallery-main img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumb-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 14px;
+    overflow-x: auto;
+}
+
+.thumb {
+    width: 90px;
+    height: 110px;
+    border: 1px solid rgba(216, 122, 29, 0.16);
+    background: #111;
+    cursor: pointer;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.thumb.active {
+    border-color: var(--accent);
+}
+
+.thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-title {
+    font-size: clamp(28px, 5vw, 46px);
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+}
+
+.product-price {
+    color: var(--accent);
+    font-size: 18px;
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+}
+
+.product-stock {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+    margin-bottom: 24px;
+}
+
+.product-description {
+    color: #d8d1c7;
+    line-height: 1.7;
+    font-size: 15px;
+    margin-bottom: 28px;
+}
+
+.product-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.qty-btn,
+.add-btn {
+    padding: 14px 16px;
+    border: 1px solid rgba(216, 122, 29, 0.24);
+    background: transparent;
+    color: var(--text);
+}
+
+.qty-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(216, 122, 29, 0.24);
+}
+
+.qty-box span {
+    width: 44px;
+    text-align: center;
+}
+
+.add-btn {
+    min-width: 220px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.add-btn:hover {
+    background: var(--accent);
+    color: #111;
+    border-color: var(--accent);
+}
+
+.add-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    background: #2a2a2a;
+    color: #999;
+    border-color: #333;
+}
+
+@media (max-width: 800px) {
+    .product-wrap {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+    <div class="nav-inner">
+        <div class="back-link" onclick="goBack()">← Back to Shop</div>
+        <div class="cart-link" onclick="goCart()">Cart</div>
+    </div>
+</nav>
+
+<div class="product-wrap">
+    <div>
+        <div class="gallery-main">
+            <img id="mainImage" src="" alt="">
+        </div>
+        <div class="thumb-row" id="thumbRow"></div>
+    </div>
+
+    <div>
+        <h1 class="product-title" id="productTitle"></h1>
+        <div class="product-price" id="productPrice"></div>
+        <div class="product-stock" id="productStock"></div>
+        <div class="product-description" id="productDescription"></div>
+
+        <div class="product-actions">
+            <div class="qty-box">
+                <button class="qty-btn" onclick="changeQty(-1)">−</button>
+                <span id="qtyDisplay">1</span>
+                <button class="qty-btn" onclick="changeQty(1)">+</button>
+            </div>
+            <button class="add-btn" id="addBtn" onclick="addCurrentProductToCart()">Add to Cart</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const INVENTORY_URL = "https://stripe-backend-m9du.onrender.com/inventory";
+
+const PRODUCTS = [
+    {
+        id: "vintage-piece",
+        name: "Vintage Piece",
+        price: 5,
+        description: "A rare vintage piece with a strong silhouette and everyday edge.",
+        images: ["./images/vintage-piece-1.jpg", "./images/vintage-piece-2.jpg", "./images/vintage-piece-3.jpg"]
+    },
+    {
+        id: "rare-find",
+        name: "Rare Find",
+        price: 10,
+        description: "A hard-to-find thrifted piece selected for texture, shape, and presence.",
+        images: ["./images/rare-find-1.jpg", "./images/rare-find-2.jpg", "./images/rare-find-3.jpg"]
+    },
+    {
+        id: "classic-thrift",
+        name: "Classic Thrift",
+        price: 5,
+        description: "Classic thrift styling with a clean, wearable finish.",
+        images: ["./images/classic-thrift-1.jpg", "./images/classic-thrift-2.jpg", "./images/classic-thrift-3.jpg"]
+    },
+    {
+        id: "luxury-vintage",
+        name: "Luxury Vintage",
+        price: 20,
+        description: "A standout vintage selection with elevated detailing and character.",
+        images: ["./images/luxury-vintage-1.jpg", "./images/luxury-vintage-2.jpg", "./images/luxury-vintage-3.jpg"]
+    },
+    {
+        id: "designer-piece",
+        name: "Designer Piece",
+        price: 10,
+        description: "Curated for impact, structure, and styling versatility.",
+        images: ["./images/designer-piece-1.jpg", "./images/designer-piece-2.jpg", "./images/designer-piece-3.jpg"]
+    },
+    {
+        id: "curated-find",
+        name: "Curated Find",
+        price: 30,
+        description: "A carefully selected statement piece from the kólas.kloset edit.",
+        images: ["./images/curated-find-1.jpg", "./images/curated-find-2.jpg", "./images/curated-find-3.jpg"]
+    },
+    {
+        id: "structured-top",
+        name: "Structured Top",
+        price: 22,
+        description: "A sharp top designed to hold shape and elevate a simple look.",
+        images: ["./images/structured-top-1.jpg", "./images/structured-top-2.jpg", "./images/structured-top-3.jpg"]
+    },
+    {
+        id: "statement-blouse",
+        name: "Statement Blouse",
+        price: 10,
+        description: "A blouse with enough character to carry the whole outfit.",
+        images: ["./images/statement-blouse-1.jpg", "./images/statement-blouse-2.jpg", "./images/statement-blouse-3.jpg"]
+    },
+    {
+        id: "vintage-knit",
+        name: "Vintage Knit",
+        price: 68,
+        description: "A textured knit with vintage appeal and easy layering potential.",
+        images: ["./images/vintage-knit-1.jpg", "./images/vintage-knit-2.jpg", "./images/vintage-knit-3.jpg"]
+    },
+    {
+        id: "tailored-trouser",
+        name: "Tailored Trouser",
+        price: 96,
+        description: "A polished trouser with a tailored fit and clean line.",
+        images: ["./images/tailored-trouser-1.jpg", "./images/tailored-trouser-2.jpg", "./images/tailored-trouser-3.jpg"]
+    },
+    {
+        id: "wide-leg-denim",
+        name: "Wide Leg Denim",
+        price: 50,
+        description: "Wide-leg denim with structure, movement, and styling range.",
+        images: ["./images/wide-leg-denim-1.jpg", "./images/wide-leg-denim-2.jpg", "./images/wide-leg-denim-3.jpg"]
+    },
+    {
+        id: "vintage-skirt",
+        name: "Vintage Skirt",
+        price: 74,
+        description: "A vintage skirt that brings shape and softness to a look.",
+        images: ["./images/vintage-skirt-1.jpg", "./images/vintage-skirt-2.jpg", "./images/vintage-skirt-3.jpg"]
+    },
+    {
+        id: "leather-bag",
+        name: "Leather Bag",
+        price: 145,
+        description: "A structured leather bag with timeless styling value.",
+        images: ["./images/leather-bag-1.jpg", "./images/leather-bag-2.jpg", "./images/leather-bag-3.jpg"]
+    },
+    {
+        id: "statement-heel",
+        name: "Statement Heel",
+        price: 132,
+        description: "A standout heel chosen for shape, finish, and presence.",
+        images: ["./images/statement-heel-1.jpg", "./images/statement-heel-2.jpg", "./images/statement-heel-3.jpg"]
+    },
+    {
+        id: "vintage-sunglasses",
+        name: "Vintage Sunglasses",
+        price: 58,
+        description: "Vintage sunglasses that finish the look without trying too hard.",
+        images: ["./images/vintage-sunglasses-1.jpg", "./images/vintage-sunglasses-2.jpg", "./images/vintage-sunglasses-3.jpg"]
+    }
+];
+
+let currentProduct = null;
+let selectedQty = 1;
+let currentStock = 0;
+
+function goBack() {
+    window.location.href = "shop.html";
+}
+
+function goCart() {
+    window.location.href = "cart.html";
+}
+
+function getCart() {
+    return JSON.parse(localStorage.getItem("kolaCart")) || [];
+}
+
+function saveCart(cart) {
+    localStorage.setItem("kolaCart", JSON.stringify(cart));
+}
+
+function getProductIdFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("id");
+}
+
+function renderProduct(product) {
+    document.getElementById("productTitle").textContent = product.name;
+    document.getElementById("productPrice").textContent = `$${product.price.toFixed(2)}`;
+    document.getElementById("productDescription").textContent = product.description;
+
+    const mainImage = document.getElementById("mainImage");
+    mainImage.src = product.images[0];
+    mainImage.alt = product.name;
+
+    const thumbRow = document.getElementById("thumbRow");
+    thumbRow.innerHTML = product.images.map((img, index) => `
+        <div class="thumb ${index === 0 ? "active" : ""}" onclick="setMainImage('${img}', this)">
+            <img src="${img}" alt="${product.name}">
+        </div>
+    `).join("");
+}
+
+function setMainImage(src, thumbEl) {
+    document.getElementById("mainImage").src = src;
+    document.querySelectorAll(".thumb").forEach(thumb => thumb.classList.remove("active"));
+    thumbEl.classList.add("active");
+}
+
+function changeQty(change) {
+    const newQty = selectedQty + change;
+    if (newQty < 1) return;
+    if (currentStock > 0 && newQty > currentStock) return;
+    selectedQty = newQty;
+    document.getElementById("qtyDisplay").textContent = selectedQty;
+}
+
+async function loadInventoryForProduct(product) {
+    try {
+        const res = await fetch(INVENTORY_URL);
+        const inventory = await res.json();
+        const data = inventory[product.name];
+
+        if (data) {
+            product.price = Number(data.price) || product.price;
+            currentStock = Number(data.stock) || 0;
+            document.getElementById("productPrice").textContent = `$${product.price.toFixed(2)}`;
+        } else {
+            currentStock = 0;
+        }
+
+        const stockEl = document.getElementById("productStock");
+        const addBtn = document.getElementById("addBtn");
+
+        if (currentStock <= 0) {
+            stockEl.textContent = "Sold out";
+            addBtn.disabled = true;
+            addBtn.textContent = "Sold Out";
+        } else if (currentStock === 1) {
+            stockEl.textContent = "Only 1 left";
+            addBtn.disabled = false;
+            addBtn.textContent = "Add to Cart";
+        } else {
+            stockEl.textContent = `In stock: ${currentStock}`;
+            addBtn.disabled = false;
+            addBtn.textContent = "Add to Cart";
+        }
+    } catch (err) {
+        console.error("Inventory load failed:", err);
+    }
+}
+
+function addCurrentProductToCart() {
+    if (!currentProduct || currentStock <= 0) return;
+
+    const cart = getCart();
+    const existingItem = cart.find(item => item.id === currentProduct.id);
+    const alreadyInCart = existingItem ? existingItem.quantity : 0;
+
+    if (alreadyInCart + selectedQty > currentStock) return;
+
+    if (existingItem) {
+        existingItem.quantity += selectedQty;
+    } else {
+        cart.push({
+            id: currentProduct.id,
+            name: currentProduct.name,
+            price: currentProduct.price,
+            image: currentProduct.images[0],
+            quantity: selectedQty
+        });
+    }
+
+    saveCart(cart);
+    window.location.href = "cart.html";
+}
+
+function initPage() {
+    const productId = getProductIdFromURL();
+    currentProduct = PRODUCTS.find(product => product.id === productId);
+
+    if (!currentProduct) {
+        document.body.innerHTML = "<div style='padding:40px;color:white;'>Product not found.</div>";
+        return;
+    }
+
+    renderProduct(currentProduct);
+    loadInventoryForProduct(currentProduct);
+}
+
+initPage();
+</script>
+
+</body>
+</html>
